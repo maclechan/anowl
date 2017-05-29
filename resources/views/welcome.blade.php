@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Laravel</title>
+        <title>Iliber</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
@@ -38,7 +38,11 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                <div class="title">welcome to Iliber</div>
+                <?=date('Y-m-d H:i:s');?>
+                <?php
+                $value = config('app');
+                ?>
             </div>
         </div>
     </body>

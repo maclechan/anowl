@@ -38,7 +38,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">welcome to Iliber</div>
+                <div class="title">libra</div>
                 <?=date('Y-m-d H:i:s');?>
                 <?php
                 $value = config('app');

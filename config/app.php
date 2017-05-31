@@ -146,7 +146,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         //form&html
-        'Illuminate\Html\HtmlServiceProvider',
+        //'Illuminate\Html\HtmlServiceProvider',
+        Collective\Html\HtmlServiceProvider::class,
 
     ],
 
@@ -197,8 +198,10 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
 
         #添加使用
-        'Form'      => Illuminate\Html\FormFacade::class,
-        'HTML'      => 'Illuminate\Html\HtmlFacade'
+        //'Form'      => Illuminate\Html\FormFacade::class,
+        //'HTML'      => 'Illuminate\Html\HtmlFacade'
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];

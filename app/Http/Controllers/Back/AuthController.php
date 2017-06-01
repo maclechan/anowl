@@ -9,7 +9,7 @@ namespace App\Http\Controllers\Back;
 
 use Validator,Auth;
 use Illuminate\Http\Request;
-use App\Models\Back\AdminUser;
+use App\Models\Back\AdminUsers;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -76,7 +76,7 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return AdminUser::create([
+        return AdminUsers::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
@@ -97,12 +97,9 @@ class AuthController extends Controller
     {
 
         $this->validate($request,
-            [$this->loginUsername() => 'required', 'password' => 'required'], [], ['name'=>'姓名','password'=>'密码']
+            [$this->loginUsername() => 'required', 'password' => 'required'], [], ['name'=>'登陆帐号','password'=>'登陆密码']
         );
 
-        // If the class is using the ThrottlesLogins trait, we can automatically throttle
-        // the login attempts for this application. We'll key this by the username and
-        // the IP address of the client making these requests into this application.
         $throttles = $this->isUsingThrottlesLoginsTrait();
 
         if ($throttles && $this->hasTooManyLoginAttempts($request)) {
@@ -115,9 +112,6 @@ class AuthController extends Controller
             return $this->handleUserWasAuthenticated($request, $throttles);
         }
 
-        // If the login attempt was unsuccessful we will increment the number of attempts
-        // to login and redirect the user back to the login form. Of course, when this
-        // user surpasses their maximum number of attempts they will get locked out.
         if ($throttles) {
             $this->incrementLoginAttempts($request);
         }
@@ -134,6 +128,10 @@ class AuthController extends Controller
         return view('back.auth.register');
     }
 
+    /**
+     * @param Request $request
+     * 添加用户
+     */
     public function postRegister(Request $request)
     {
         $validator = $this->validator($request->all());

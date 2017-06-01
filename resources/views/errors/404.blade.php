@@ -22,10 +22,10 @@
 
 <div class="middle-box text-center animated fadeInDown">
     <h1>404</h1>
-    <h3 class="font-bold">页面还未开发....</h3>
+    <h3 class="font-bold">Page not found....</h3>
 
     <div class="error-desc">
-        你跑到外星上面来拉.......
+
     </div>
 </div>
 

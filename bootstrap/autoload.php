@@ -26,6 +26,12 @@ require __DIR__.'/../vendor/autoload.php';
 | by a request. The Artisan "optimize" is used to create this file.
 |
 */
+/**
+ *  引入自定义函数库
+ */
+require __DIR__.'/../app/Functions/BaseFunc.php';
+
+require __DIR__.'/../app/Functions/CommonFunc.php';
 
 $compiledPath = __DIR__.'/cache/compiled.php';
 

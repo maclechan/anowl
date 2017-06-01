@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>管理后台 - @yield('title')</title>
+    <title>@yield('title') - 管理后台</title>
 
     <link href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/awesome/css/font-awesome.min.css') }}" rel="stylesheet">
@@ -87,8 +87,8 @@
                             @foreach ($value->menu as $menu_value)
                                 <li @if($breadcrumb[0]['action_name'] == $action_name) class="active" @endif>
                                     <a href="{{url($menu_value->url)}}">
-                                        {{$menu_value->nav_name}}
                                         @if ($menu_value->icon_class)<i class="fa {{$menu_value->icon_class}}"></i> @endif
+                                        {{$menu_value->nav_name}}
                                     </a>
                                 </li>
                             @endforeach

@@ -20,9 +20,9 @@
 <body class="gray-bg">
 <div class="middle-box text-center loginscreen animated fadeInDown">
     <div>
-        <div><h1 class="logo-name"><i class="fa fa-code-fork" aria-hidden="true"></i></h1></div>
+        <div><h1 class="logo-name"><i class="fa fa-tripadvisor" aria-hidden="true"></i></h1></div>
 
-        <h3>sign in to iliber</h3>
+        <h3>sign in to owl</h3>
 
         {!! Form::open(['url'=>'/back/login']) !!}
         <div class="form-group">

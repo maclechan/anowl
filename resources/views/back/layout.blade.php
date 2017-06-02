@@ -8,8 +8,8 @@
 
     <title>@yield('title') - 管理后台</title>
 
-    <link href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/bootstrap-3.3.7/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet">
 
     <link href="{{ asset('css/back/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('css/back/style.css') }}" rel="stylesheet">
@@ -49,23 +49,15 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <span class="clear">
-                                    <span class="block m-t-xs">
-                                        <strong class="font-bold">欢迎小主 {{$userInfo['info']->nick_name}}</strong>
-                                    </span> <span class="text-muted text-xs block">快速入口 <b class="caret"></b></span>
-                                </span>
+                            <div class="text-center">
+                                <i class="fa fa-tripadvisor fa-3x" aria-hidden="true"></i>
+                            </div>
+                            <span class="text-center block m-t-xs">
+                                <strong class="font-bold">欢迎小主 {{$userInfo['info']->nick_name}}</strong>
+                            </span>
                         </a>
-                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="profile.html">Profile</a></li>
-                            <li><a href="contacts.html">Contacts</a></li>
-                            <li><a href="mailbox.html">Mailbox</a></li>
-                            <li class="divider"></li>
-                            <li><a href="{{ url('back/logout') }}">Logout</a></li>
-                        </ul>
                     </div>
-                    <div class="logo-element">
-                        IN+
-                    </div>
+                    <div class="logo-element"><i class="fa fa-tripadvisor" aria-hidden="true"></i></div>
                 </li>
 
                 @foreach ($menu as $value)
@@ -107,7 +99,8 @@
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
-                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+
+                    <a class="navbar-minimalize pull-left m-t-md m-l-md" href="#"><i class="fa fa-compress fa-lg text-muted"></i> </a>
                     <form role="search" class="navbar-form-custom" action="search_results.html">
                         <div class="form-group">
                             <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
@@ -116,11 +109,8 @@
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
-                        <span class="m-r-sm text-muted welcome-message">欢迎小主进入后台管理系统.</span>
-                    </li>
-                    <li>
                         <a href="{{url('back/logout')}}">
-                            <i class="fa fa-sign-out"></i> Log out
+                            <i class="fa fa-sign-out fa-lg"></i>Log out
                         </a>
                     </li>
                 </ul>
@@ -133,19 +123,18 @@
             <div class="col-lg-9">
                 <h2></h2>
                 <ol class="breadcrumb">
+                    <li><a href="/back"><i class="fa fa-tripadvisor fa-lg text-navy" aria-hidden="true"></i></a></li>
                     @foreach ($breadcrumb as $value)
                         @if(empty($value['url']))
                             <li>{{$value['nav_name']}}</li>
                         @else
-                            <li><a href="{{url($value['url'])}}">{{$value['nav_name']}}</a></li>
+                            <li class="active"><a href="{{url($value['url'])}}"><b>{{$value['nav_name']}}</b></a></li>
                         @endif
                     @endforeach
                 </ol>
             </div>
         </div>
         <!--面包屑-->
-
-
 
         <div class="wrapper wrapper-content animated fadeInRight">
             @yield('content')
@@ -154,9 +143,6 @@
         <div class="footer">
             <div class="pull-right">
                 power by <strong>maclechan@qq.com</strong>.
-            </div>
-            <div>
-                <strong>Copyright</strong> Example Company &copy; 2014-2015
             </div>
         </div>
 

@@ -57,7 +57,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach ($_pmenu as $value)
+                        @foreach ($pages as $value)
                             @if(!$value->parent_id)
                             <tr>
                                 <td data-toggle="collapse" href="#faq{{ $value->nav_id }}">
@@ -142,7 +142,20 @@
                         </tbody>
                     </table>
                     <div class="text-right tooltip-demo">
-                        {!! $_pmenu->render() !!}
+
+                        {!! $pages->render() !!}
+
+
+
+                        <ul class="pagination pull-left">
+                            <li class="footable-page-arrow"><a data-page="first" href="{!! $pages->url(1) !!} #first">首页</a></li>
+                            <li class="footable-page-arrow"><a data-page="prev" href="{!! $pages->previousPageUrl() !!} #prev">上一页</a></li>
+
+                            <li class="footable-page active"><a data-page="0" href="#">{!! $pages->currentPage() !!}</a></li>
+
+                            <li class="footable-page-arrow"><a data-page="next" href="{!! $pages->nextPageUrl() !!} #next">下一页</a></li>
+                            <li class="footable-page-arrow"><a data-page="last" href="{!! $pages->url($pages->lastPage()) !!} #last">末页</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>

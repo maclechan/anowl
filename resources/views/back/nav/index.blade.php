@@ -155,6 +155,24 @@
 
                             <li class="footable-page-arrow"><a data-page="next" href="{!! $pages->nextPageUrl() !!} #next">下一页</a></li>
                             <li class="footable-page-arrow"><a data-page="last" href="{!! $pages->url($pages->lastPage()) !!} #last">末页</a></li>
+
+                                <div class="input-group">
+                                    <input type="text" id="page" class="input-sm form-control">
+                                    <span class="input-group-btn">
+                                        <button id="goto" class="btn btn-sm btn-primary" type="button"> <b>跳转</b></button>
+                                    </span>
+                                </div>
+                            <script>
+                               /* $('#chan').on('click', function () {
+                                    var btn = $("#macle").value;
+                                    // business logic...
+                                    alert(btn);
+                                });*/
+                                $('#goto').click(function () {
+                                    var num = $("#page").val()
+                                    window.location.href = "/back/nav/index?page="+num
+                                })
+                            </script>
                         </ul>
                     </div>
                 </div>

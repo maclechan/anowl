@@ -18,8 +18,13 @@ class NavController extends BaseController
     /**
      * 菜单列表
      */
-    public function getIndex()
+    public function getIndex(Request $request)
     {
+        /*$request = $request->all();
+        if ($request){
+            print_r($request);
+        }*/
+
         $menu = new AdminNav();
         $pages = $menu->where('parent_id', 0)->orderBy('nav_id','ASC')->paginate(config('system.page_limit'));
 

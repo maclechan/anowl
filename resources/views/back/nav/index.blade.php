@@ -5,9 +5,6 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>菜单权限列表 </h5>
-            </div>
             <div class="ibox-content">
                 @if (session('msg'))
                     <div class="col-lg-3">
@@ -141,8 +138,9 @@
                         @endforeach
                         </tbody>
                     </table>
+
                     <div class="text-right">
-                        <div class="mail-body">
+                        <div class="mail-body text-right">
                             <ul class="pagination row">
                                 <li class="footable-page-arrow"><a data-page="first" href="{!! $pages->url(1) !!} #first">首页</a></li>
                                 <li class="footable-page-arrow"><a data-page="prev" href="{!! $pages->previousPageUrl() !!} #prev">上一页</a></li>
@@ -168,7 +166,6 @@
                                 </script>
                             </div>
                         </div>
-
                     </div>
 
                 </div>

@@ -141,40 +141,36 @@
                         @endforeach
                         </tbody>
                     </table>
-                    <div class="text-right tooltip-demo">
+                    <div class="text-right">
+                        <div class="mail-body">
+                            <ul class="pagination row">
+                                <li class="footable-page-arrow"><a data-page="first" href="{!! $pages->url(1) !!} #first">首页</a></li>
+                                <li class="footable-page-arrow"><a data-page="prev" href="{!! $pages->previousPageUrl() !!} #prev">上一页</a></li>
 
-                        {!! $pages->render() !!}
+                                <li class="footable-page active"><a data-page="0" href="#">第{!! $pages->currentPage() !!}页</a></li>
 
+                                <li class="footable-page-arrow"><a data-page="next" href="{!! $pages->nextPageUrl() !!} #next">下一页</a></li>
+                                <li class="footable-page-arrow"><a data-page="last" href="{!! $pages->url($pages->lastPage()) !!} #last">末页</a></li>
+                            </ul>
 
-
-                        <ul class="pagination pull-left">
-                            <li class="footable-page-arrow"><a data-page="first" href="{!! $pages->url(1) !!} #first">首页</a></li>
-                            <li class="footable-page-arrow"><a data-page="prev" href="{!! $pages->previousPageUrl() !!} #prev">上一页</a></li>
-
-                            <li class="footable-page active"><a data-page="0" href="#">{!! $pages->currentPage() !!}</a></li>
-
-                            <li class="footable-page-arrow"><a data-page="next" href="{!! $pages->nextPageUrl() !!} #next">下一页</a></li>
-                            <li class="footable-page-arrow"><a data-page="last" href="{!! $pages->url($pages->lastPage()) !!} #last">末页</a></li>
-
-                                <div class="input-group">
-                                    <input type="text" id="page" class="input-sm form-control">
+                            <div class="pull-right pagination m-l-xs">
+                                <div class="input-group col-xs-5">
+                                    <input type="text" id="page" value="{!! $pages->currentPage() !!}" class="input-sm form-control">
                                     <span class="input-group-btn">
                                         <button id="goto" class="btn btn-sm btn-primary" type="button"> <b>跳转</b></button>
                                     </span>
                                 </div>
-                            <script>
-                               /* $('#chan').on('click', function () {
-                                    var btn = $("#macle").value;
-                                    // business logic...
-                                    alert(btn);
-                                });*/
-                                $('#goto').click(function () {
-                                    var num = $("#page").val()
-                                    window.location.href = "/back/nav/index?page="+num
-                                })
-                            </script>
-                        </ul>
+                                <script>
+                                    $('#goto').click(function () {
+                                        var num = $("#page").val()
+                                        window.location.href = "/back/nav/index?page="+num
+                                    })
+                                </script>
+                            </div>
+                        </div>
+
                     </div>
+
                 </div>
             </div>
         </div>

@@ -126,7 +126,7 @@ class AdminNav extends BaseModel
     }
 
     /**
-     * 读取所有菜单组
+     * 树状菜单
      * @return mixed
      */
     public function getAllMenu(){

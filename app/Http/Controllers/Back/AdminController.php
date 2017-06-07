@@ -7,6 +7,8 @@ namespace App\Http\Controllers\Back;
  * @date    2017-5-30
  */
 
+use DB;
+
 class AdminController extends BaseController
 {
     /**
@@ -15,6 +17,12 @@ class AdminController extends BaseController
      */
     public function index()
     {
-        return view('back.admin.index');
+        $_data = DB::table('admin_users')
+            ->orderBy('id', 'ASC')
+            ->paginate(config('system.page_limit'));
+
+        return view('back.admin.index',[
+            'pages' => $_data,
+        ]);
     }
 }

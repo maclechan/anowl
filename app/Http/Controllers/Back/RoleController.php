@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Back;
  * @date    2017-5-30
  */
 
+use DB;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
@@ -14,6 +15,12 @@ class RoleController extends BaseController
 {
     public function getIndex()
     {
-        return view('back.admin.index');
+        $_data = DB::table('admin_users')
+            ->orderBy('id', 'ASC')
+            ->paginate(config('system.page_limit'));
+
+        return view('back.admin.index',[
+            'pages' => $_data,
+        ]);
     }
 }

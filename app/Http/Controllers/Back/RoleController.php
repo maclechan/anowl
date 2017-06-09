@@ -19,8 +19,14 @@ class RoleController extends BaseController
             ->orderBy('id', 'ASC')
             ->paginate(config('system.page_limit'));
 
-        return view('back.admin.index',[
+        return view('back.role.index',[
             'pages' => $_data,
         ]);
+    }
+
+    //添加用户视图
+    public function getAdd()
+    {
+        return view('back.role.add');
     }
 }

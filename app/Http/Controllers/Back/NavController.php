@@ -20,11 +20,16 @@ class NavController extends BaseController
      */
     public function getIndex(Request $request)
     {
+
         $pages = AdminNav::where('parent_id', 0)->orderBy('nav_id','ASC')->paginate(config('system.page_limit'));
         $_smenu = AdminNav::where('parent_id', '<>', 0)->orderBy('nav_id','ASC')->get();
+
+        //所有一级菜单
+        $select_data = AdminNav::where('parent_id', 0)->get();
         return view('back.nav.index',[
             'pages' => $pages,
             '_smenu' => $_smenu,
+            'select_data' => $select_data,
         ]);
     }
 

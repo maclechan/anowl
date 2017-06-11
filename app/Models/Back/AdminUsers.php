@@ -7,6 +7,7 @@ namespace App\Models\Back;
  * @date    2017/5/30
  */
 
+use Validator;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -38,7 +39,7 @@ class AdminUsers extends Model implements AuthenticatableContract,
      * 允许通过表单批量赋值
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'password', 'nick_name', 'mobile', 'group_id', 'role_id', 'status'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -47,30 +48,64 @@ class AdminUsers extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
-
+    /**
+     * 验证规则
+     * @return array
+     */
     public function rules()
     {
         return [
-            'name' => 'required|string|min:1,max:60',
-            'email' => 'required|string|min:1,max:80',
+            'name' => 'required|unique:admin_users|min:1',
+            'password' => 'required|confirmed|min:6',
+            'email' => 'required|email|unique:admin_users|min:1,max:80',
             'nick_name' => 'required|string|min:1,max:10',
-            //        'mobile' => 'required|string',
             'status' => 'required|boolean',
         ];
     }
 
+    /**
+     * 自定义错误信息
+     * @return array
+     */
     public function ruleMsg()
     {
         return [
-            'name.required' => '登录帐号不能为空',
-            'email.required' => '邮箱不能为空',
-            'nick_name.required' => '姓名不能为空',
-            'status.required' => '状态不能为空',
-            'mobile.required' => '手机号不能为空',
-            'string' => '不是有效字符串.',
-            'boolean' => '参数错误.',
-            'min' => '小于.',
-            'max' => '大于.',
+            'required' => ':attribute不能为空.',
+            'name.unique' => '登陆帐号己存在.',
+            'email.unique' => '该邮箱己被使用.'
         ];
+    }
+
+    /**
+     * 字段映射中文
+     * @return array
+     */
+    public function attributeLabels()
+    {
+        return [
+            'name' => '登陆帐号',
+            'email' => 'E-mail',
+            'password' => '密码',
+            'nick_name' => '姓名',
+            'mobile' => '手机',
+            'group_id' => '组别',
+            'role_id' => '角色',
+            'status' => '用户状态 (0:正常 1:禁用)',
+        ];
+    }
+
+    /**
+     * 表单数据校验
+     * @param $post_data
+     * @return bool
+     */
+    public function validator($post_data)
+    {
+        return Validator::make(
+            $post_data,
+            $this->rules(),
+            $this->ruleMsg(),
+            $this->attributeLabels()
+        );
     }
 }

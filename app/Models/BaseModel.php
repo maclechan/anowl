@@ -8,6 +8,7 @@ namespace App\Models;
  */
 
 use Log;
+use Validator;
 use Illuminate\Database\Eloquent\Model;
 
 class BaseModel extends Model

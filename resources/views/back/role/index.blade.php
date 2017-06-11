@@ -40,8 +40,8 @@
                                         </td>
                                         <td>{{ $value->name }}</td>
                                         <td>{{ $value->email }}</td>
-                                        <td>{{ $value->nike_name }}</td>
-                                        <td>{{ date('Y-m-d',$value->created_at) }}</td>
+                                        <td>{{ $value->nick_name }}</td>
+                                        <td>{{ date('Y-m-d/H:i:s',$value->created_at) }}</td>
                                         <td>
                                     <span
                                             data data-toggle="modal" data-target="#editmenu" data-toggle="tooltip" class="btn btn-primary btn-xs">

@@ -27,7 +27,8 @@
                                     <th>ID</th>
                                     <th>登陆帐号</th>
                                     <th>E-mail</th>
-                                    <th>昵称</th>
+                                    <th>姓名</th>
+                                    <th>状态</th>
                                     <th>创建时间</th>
                                     <th>操作</th>
                                 </tr>
@@ -41,6 +42,7 @@
                                         <td>{{ $value->name }}</td>
                                         <td>{{ $value->email }}</td>
                                         <td>{{ $value->nick_name }}</td>
+                                        <td>{!! $value->status?'<span class="badge badge-danger">己禁用</span>':'<span class="badge badge-primary">己启用</span>' !!}</td>
                                         <td>{{ date('Y-m-d/H:i:s',$value->created_at) }}</td>
                                         <td>
                                     <span

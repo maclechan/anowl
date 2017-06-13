@@ -60,6 +60,7 @@ class AdminUsers extends Model implements AuthenticatableContract,
             'email' => 'required|email|unique:admin_users|min:1,max:80',
             'nick_name' => 'required|string|min:1,max:10',
             'status' => 'required|boolean',
+            'mobile' => 'unique:admin_users|regex:/^1[345789][0-9]{9}$/',
         ];
     }
 
@@ -72,7 +73,8 @@ class AdminUsers extends Model implements AuthenticatableContract,
         return [
             'required' => ':attribute不能为空.',
             'name.unique' => '登陆帐号己存在.',
-            'email.unique' => '该邮箱己被使用.'
+            'email.unique' => '该邮箱己被使用.',
+            'mobile.unique' => '该手机号己被使用.'
         ];
     }
 

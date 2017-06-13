@@ -7,7 +7,9 @@ namespace App\Http\Controllers\Back;
  * @date    2017-5-30
  */
 
-use DB,Validator;
+use DB,
+    Input,
+    Validator;
 use Illuminate\Http\Request;
 use App\Models\Back\AdminUsers;
 
@@ -64,5 +66,70 @@ class RoleController extends BaseController
         $this->create($request->all());
         return redirect('/back/role/index');
 
+    }
+
+    //修改用户
+    public function postEdit(Request $request)
+    {
+        $model = new AdminUsers();
+        $input = $request->all();
+
+        $info = $model->where('id', $input['id'])->first()->toArray();
+
+        $filte = [
+            'email'              => $input['email'],
+            'nick_name'       => $input['nick_name'],
+            'mobile'           => $input['mobile'],
+            'status'                   => $input['status'],
+        ];
+
+        if($input['password']) {
+            $filte['password'] =  bcrypt($input['password']);
+        }
+
+        if(!empty($input)){
+            $is_update = $model->where('id', $info['id'])->update($filte);
+            if(!$is_update){
+                return redirect('back/role/index')->with('msg', '修改失败!');
+            }
+            return redirect('back/role/index')->with('msg', '修改成功!');
+        }
+    }
+
+    /**
+     * 删除菜单
+     */
+    public function postDel() {
+        if (Input::ajax()) {
+            $id = Input::input('id');
+            $model = new AdminUsers();
+
+            //DB::beginTransaction();
+            $is_del = $model->where('id',$id)->delete();
+            if(!$is_del) {
+                DB::rollBack();
+                $data = [
+                    'code' => -200,
+                    'msg'  => '删除失败',
+                ];
+                return response()->json($data);
+            }
+
+            /*$is_del_assigned = $AssignedModel->where('nav_id', $nav_id)->delete();
+            if(!$is_del_assigned){
+                DB::rollBack();
+                $data = [
+                    'code' => -200,
+                    'msg'  => '删除失败',
+                ];
+                return response()->json($data);
+            }*/
+            //DB::commit();
+            $data = [
+                'code' => 200,
+                'msg' => '删除成功',
+            ];
+            return response()->json($data);
+        }
     }
 }

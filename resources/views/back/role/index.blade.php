@@ -5,6 +5,25 @@
         <div class="col-lg-12">
             <div class="ibox">
                 <div class="ibox-content">
+                    @if (session('msg'))
+                        <div class="col-lg-3">
+                            <div class="alert alert-success alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                {{ session('msg') }}
+                            </div>
+                        </div>
+                    @endif
+                    @if (count($errors) > 0)
+                        <div class="col-lg-3">
+                            <div class="alert alert-danger alert-dismissable">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="col-sm-9 m-b-xs">
                             <ul>
@@ -28,7 +47,10 @@
                                     <th>登陆帐号</th>
                                     <th>E-mail</th>
                                     <th>姓名</th>
-                                    <th>状态</th>
+                                    <th>手机</th>
+                                    <th>部门</th>
+                                    <th>角色</th>
+                                    <th>帐号状态</th>
                                     <th>创建时间</th>
                                     <th>操作</th>
                                 </tr>
@@ -42,14 +64,24 @@
                                         <td>{{ $value->name }}</td>
                                         <td>{{ $value->email }}</td>
                                         <td>{{ $value->nick_name }}</td>
+                                        <td>{{ $value->mobile }}</td>
+                                        <td>{{ $value->group_id }}</td>
+                                        <td>{{ $value->role_id }}</td>
                                         <td>{!! $value->status?'<span class="badge badge-danger">己禁用</span>':'<span class="badge badge-primary">己启用</span>' !!}</td>
                                         <td>{{ date('Y-m-d/H:i:s',$value->created_at) }}</td>
                                         <td>
-                                    <span
-                                            data data-toggle="modal" data-target="#editmenu" data-toggle="tooltip" class="btn btn-primary btn-xs">
+                                    <span data-id="{{ $value->id }}"
+                                          data-name="{{ $value->name }}"
+                                          data-email="{{ $value->email }}"
+                                          data-nick_name="{{ $value->nick_name }}"
+                                          data-mobile="{{ $value->mobile }}"
+                                          data-group_id="{{ $value->group_id }}"
+                                          data-role_id="{{ $value->role_id }}"
+                                          data-status="{{ $value->status }}"
+                                          data data-toggle="modal" data-target="#edit" class="btn btn-primary btn-xs">
                                         <i class="fa fa-pencil"></i> 编辑
                                     </span>
-                                    <span onClick="deleteNav({{$value->id}})" class="btn btn-primary btn-xs">
+                                    <span onClick="deleteRole({{$value->id}})" class="btn btn-primary btn-xs">
                                         <i class="fa fa-trash-o"></i> 删除
                                     </span>
                                         </td>
@@ -95,4 +127,36 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function deleteRole(id){
+            var id = id;
+            swal({
+                title: "确定删除吗?",
+                text: "此次操作不可逆!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#1ab394",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false
+            },
+            function(){
+                $.ajax({
+                    type: 'POST',
+                    url: '/back/role/del',
+                    data: {'id':id, '_token':"<?=csrf_token()?>"},
+                    dataType: "json",
+                    success: function (data) {
+                        swal("Deleted!", data.msg, "success");
+                        window.location = '/back/role/index';
+                    },
+                    error: function (data) {
+                        swal("Error!", data.msg, "error");
+                    }
+                });
+            });
+        };
+    </script>
+@include('back.role.edit')
 @endsection

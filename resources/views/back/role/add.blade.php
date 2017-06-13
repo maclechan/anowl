@@ -38,37 +38,37 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">登陆帐号 *</label>
                             <div class="col-lg-4">
-                                <input type="text" class="form-control"  name="name" id="name" required placeholder="尽量使用英文帐号登陆" />
+                                <input type="text" value="{{ old('name') }}" class="form-control"  name="name" id="name" required placeholder="尽量使用英文帐号登陆" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">登录密码 *</label>
                             <div class="col-lg-4">
-                                <input type="password" class="form-control"  name="password" id="password" required placeholder="密码不能少到6位" />
+                                <input type="password" value="{{ old('password') }}" class="form-control" required name="password" id="password" placeholder="密码不能少到6位" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">确认密码 *</label>
                             <div class="col-lg-4">
-                                <input type="password" class="form-control"  name="password_confirmation" id="password_confirmation" required placeholder="两次密码要一致" />
+                                <input type="password" value="{{ old('password_confirmation') }}" class="form-control" required name="password_confirmation" id="password_confirmation" placeholder="两次密码要一致" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">邮件 *</label>
                             <div class="col-lg-4">
-                                <input type="text" class="form-control"  name="email" id="email" required placeholder="如：maclechan@qq.com" />
+                                <input type="text" value="{{ old('email') }}" class="form-control"  name="email" id="email" required placeholder="如：maclechan@qq.com" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">姓名 *</label>
                             <div class="col-lg-4">
-                                <input type="text" class="form-control"  name="nick_name" id="nick_name" required placeholder="如：路飞" />
+                                <input type="text" value="{{ old('nick_name') }}" class="form-control"  name="nick_name" id="nick_name" required placeholder="如：路飞" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">手机号 </label>
                             <div class="col-lg-4">
-                                <input type="text" class="form-control"  name="mobile" id="mobile"  placeholder="如：13251079793" />
+                                <input type="text" value="{{ old('mobile') }}" class="form-control"  name="mobile" id="mobile"  placeholder="如：13251079793" />
                             </div>
                         </div>
                         <div class="form-group">

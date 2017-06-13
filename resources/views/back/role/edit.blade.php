@@ -1,56 +1,64 @@
-<!--模态框->菜单编辑-->
-<div class="modal inmodal fade" id="editmenu" tabindex="-1" role="dialog"  aria-hidden="true">
+<!--添加菜单-->
+<div class="modal inmodal fade" id="edit" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 
-                <span class="font-bold">编辑用户</span>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <span class="font-bold">修改帐号</span>
             </div>
-            <form action="{{ url('back/role/edit') }}" method="post" id="editmenu-form" class="form-horizontal" enctype="multipart/form-data">
+
+            <form action="{{ url('back/role/edit') }}" method="post" class="form-horizontal">
+                {!! csrf_field() !!}
+                <input type="hidden" class="form-control" id="id" name="id">
                 <div class="modal-body">
-                    {!! csrf_field() !!}
-                    <input type="hidden" class="form-control" id="id" name="id">
                     <div class="form-group">
-                        <label class="col-lg-4 control-label">登陆帐号 *</label>
+                        <label class="col-lg-4 control-label">登陆帐号 </label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control"  name="name" id="name" required placeholder="如：123" />
+                            <input type="text" value="{{ old('name') }}" disabled class="form-control"  name="name" id="name" required placeholder="尽量使用英文帐号登陆" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-4 control-label">重置密码</label>
+                        <label class="col-lg-4 control-label">登录密码 </label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control"  name="password" id="password"  placeholder="如：1" />
+                            <input type="password" value="{{ old('password') }}" class="form-control"  name="password" id="password" placeholder="为空不修改" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-4 control-label">邮件 *</label>
+                        <label class="col-lg-4 control-label">邮件 </label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control"  name="email" id="email" required placeholder="如：123@qq.com" />
+                            <input type="text" value="{{ old('email') }}" class="form-control"  name="email" id="email" required placeholder="如：maclechan@qq.com" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-4 control-label">姓名 *</label>
+                        <label class="col-lg-4 control-label">姓名 </label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control"  name="nick_name" id="nick_name" required placeholder="如：张三" />
+                            <input type="text" value="{{ old('nick_name') }}" class="form-control"  name="nick_name" id="nick_name" required placeholder="如：路飞" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-4 control-label">手机号 </label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control"  name="mobile" id="mobile"  placeholder="如：123456789" />
+                            <input type="text" value="{{ old('mobile') }}" class="form-control"  name="mobile" id="mobile"  placeholder="如：13251079793" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-4 control-label">是否禁用</label>
                         <div class="col-lg-4">
-                            <select class="form-control " id="status" required name="status">
-                                <option value="0">否</option>
-                                <option value="1">是</option>
-                            </select>
+                            <div class="radio radio-success radio-inline">
+                                <input type="radio" id="is_show_1" value="1" name="status">
+                                <label for="is_show_1">是</label>
+                            </div>
+                            <div class="radio radio-success radio-inline">
+                                <input type="radio" id="is_show_0" value="0" name="status" checked="">
+                                <label for="is_show_0">否</label>
+                            </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-sm btn-primary" data-dismiss="modal">取消</button>
                     <button type="submit" class="btn btn-sm btn-primary">保存</button>
@@ -60,18 +68,23 @@
         </div>
     </div>
 </div>
+
 <script type="text/javascript">
     $("document").ready(function(){
-        $('#editmenu').on('show.bs.modal', function (event) {
+        $('#edit').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
+            var id = button.data('id') // Extract info from data-* attributes
+            var name = button.data('name')
+            var email = button.data('email')
+            var nick_name = button.data('nick_name')
+            var mobile = button.data('mobile')
+
             var modal = $(this)
-            modal.find('#id').val(button.data('id'))
-            modal.find('#name').val(button.data('name'))
-            modal.find('#email').val(button.data('email'))
-            modal.find('#nick_name').val(button.data('nick_name'))
-            modal.find('#mobile').val(button.data('mobile'))
-            modal.find('#status').val(button.data('status'))
+            modal.find('#id').val(id)
+            modal.find('#name').val(name)
+            modal.find('#email').val(email)
+            modal.find('#nick_name').val(nick_name)
+            modal.find('#mobile').val(mobile)
         })
     });
 </script>
-<!--edit-->

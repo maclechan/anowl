@@ -97,7 +97,7 @@ class RoleController extends BaseController
     }
 
     /**
-     * 删除菜单
+     * 删除用户
      */
     public function postDel() {
         if (Input::ajax()) {

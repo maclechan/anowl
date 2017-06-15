@@ -2,10 +2,6 @@
 # 后台路由
 /*启用子域名要关闭prefix*/
 Route::group(['prefix'=>'back','namespace' => 'Back' /*,'domain' => 'wiki.homestead.app'*/], function() {
-    // 注册路由...
-    Route::get('/register', 'AuthController@getRegister');
-    Route::post('/register', 'AuthController@postRegister');
-
     Route::get('/', [ 'as' => 'admin', 'uses' => 'AdminController@index']); //管理后台默认首页
     // 认证路由...
     Route::get('/login', 'AuthController@getLogin');

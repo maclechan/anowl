@@ -52,11 +52,18 @@
         {!! Form::close() !!}
         <p class="m-t">
             @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <ul style="color:red;">
+            <div class="alert alert-danger text-danger">
+                <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
+                </ul>
+            </div>
+            @endif
+            @if (session('msg'))
+            <div class="alert alert-danger text-danger">
+                <ul>
+                    <li>{{ session('msg') }}</li>
                 </ul>
             </div>
             @endif

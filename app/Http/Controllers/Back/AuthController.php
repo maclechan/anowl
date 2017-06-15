@@ -97,21 +97,31 @@ class AuthController extends Controller
     {
 
         $this->validate($request,
-            [$this->loginUsername() => 'required', 'password' => 'required'], [], ['name'=>'登陆帐号','password'=>'登陆密码']
+                        [$this->loginUsername() => 'required', 'password' => 'required'],
+                        ['name.unique' => '登陆帐号不能为空.', 'password.unique' => '登陆密码不能为空.'],
+                        ['name'=>'登陆帐号','password'=>'登陆密码']
         );
 
         $throttles = $this->isUsingThrottlesLoginsTrait();
 
+        //用户登陆次数控制
         if ($throttles && $this->hasTooManyLoginAttempts($request)) {
             return $this->sendLockoutResponse($request);
         }
 
+        //获得登陆表单信息
         $credentials = $this->getCredentials($request);
 
         if (Auth::attempt($credentials, $request->has('remember'))) {
-            return $this->handleUserWasAuthenticated($request, $throttles);
+            if(Auth::user()->status == 1){
+                Auth::logout();
+                return redirect('/back/login')->with('msg', '该用户己被禁用.');
+            }else{
+                return $this->handleUserWasAuthenticated($request, $throttles);
+            }
         }
 
+        //记录登陆失败次数
         if ($throttles) {
             $this->incrementLoginAttempts($request);
         }
@@ -121,30 +131,6 @@ class AuthController extends Controller
             ->withErrors([
                 $this->loginUsername() => $this->getFailedLoginMessage(),
             ]);
-    }
-
-    public function getRegister()
-    {
-        return view('back.auth.register');
-    }
-
-    /**
-     * @param Request $request
-     * 添加用户
-     */
-    public function postRegister(Request $request)
-    {
-        $validator = $this->validator($request->all());
-
-        if ($validator->fails()) {
-            $this->throwValidationException(
-                $request, $validator
-            );
-        }
-
-        Auth::login($this->create($request->all()));
-
-        return redirect($this->redirectPath());
     }
 
 }

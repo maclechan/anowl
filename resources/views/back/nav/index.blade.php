@@ -28,7 +28,7 @@
                 <div class="row">
                     <div class="col-sm-9 m-b-xs">
                         <ul>
-                            <span data-toggle="modal" data-target="#addmenu" class="btn btn-sm btn-primary">
+                            <span data-toggle="modal" data-target="#addmenu" class="btn btn-sm btn-primary btn-outline">
                                 <i class="fa fa-plus"></i> 创建菜单
                             </span>
                         </ul>
@@ -58,21 +58,13 @@
                             @if(!$value->parent_id)
                             <tr>
                                 <td data-toggle="collapse" href="#faq{{ $value->nav_id }}">
-                                    <a class="badge badge-primary"><span class="fa fa-angle-down"> </span> {{ $value->nav_id }}</a>
+                                    <a class="badge badge-primary"><span class="fa fa-arrow-circle-down"> </span> {{ $value->nav_id }}</a>
                                 </td>
                                 <td>{{ $value->nav_name }}</td>
                                 <td>{{ $value->controller_name }}</td>
                                 <td>{{ $value->action_name }}</td>
                                 <td>{{ $value->url }}</td>
-                                <td>
-                                    <div class="onoffswitch">
-                                        <input {{ $value['is_show'] == 1 ? checked: '' }} type="checkbox" id="{{ $value->nav_id }}" class="onoffswitch-checkbox">
-                                        <label for="{{ $value->nav_id }}" class="onoffswitch-label">
-                                            <span class="onoffswitch-inner"></span>
-                                            <span class="onoffswitch-switch"></span>
-                                        </label>
-                                    </div>
-                                </td>
+                                <td>{!! $value->is_show?'<span class="badge badge-primary">导航</span>':'<span class="badge badge-danger">隐藏</span>' !!}</td>
                                 <td>
                                     <span data-id="{{ $value->nav_id }}"
                                           data-name="{{ $value->nav_name }}"
@@ -82,10 +74,12 @@
                                           data-icon="{{ $value->icon_class }}"
                                           data-sort="{{ $value->sort }}"
                                           data-show="{{ $value->is_show }}"
-                                          data data-toggle="modal" data-target="#editmenu" data-toggle="tooltip" class="btn btn-primary btn-xs">
+                                          data data-toggle="modal"
+                                          data-target="#editmenu"
+                                          class="btn btn-primary btn-xs btn-rounded btn-outline">
                                         <i class="fa fa-pencil"></i> 编辑
                                     </span>
-                                    <span onClick="deleteNav({{$value['nav_id']}})" class="btn btn-primary btn-xs">
+                                    <span onClick="deleteNav({{$value['nav_id']}})" class="btn btn-primary btn-xs btn-rounded btn-outline">
                                         <i class="fa fa-trash-o"></i> 删除
                                     </span>
                                 </td>
@@ -102,15 +96,7 @@
                                                         <td>{{ $_v->controller_name }}</td>
                                                         <td>{{ $_v->action_name }}</td>
                                                         <td>{{ $_v->url }}</td>
-                                                        <td>
-                                                            <div class="onoffswitch">
-                                                                <input {{ $_v['is_show'] == 1 ? checked: '' }} type="checkbox" id="{{ $_v->nav_id }}" class="onoffswitch-checkbox">
-                                                                <label for="{{ $_v->nav_id }}" class="onoffswitch-label">
-                                                                    <span class="onoffswitch-inner"></span>
-                                                                    <span class="onoffswitch-switch"></span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
+                                                        <td>{!! $value->is_show?'<span class="badge badge-primary">导航</span>':'<span class="badge badge-danger">隐藏</span>' !!}</td>
                                                         <td>
                                                             <span data-id="{{ $_v->nav_id }}"
                                                                   data-name="{{ $_v->nav_name }}"
@@ -120,10 +106,12 @@
                                                                   data-icon="{{ $_v->icon_class }}"
                                                                   data-sort="{{ $_v->sort }}"
                                                                   data-show="{{ $_v->is_show }}"
-                                                                  data data-toggle="modal" data-target="#editmenu" data-toggle="tooltip" class="btn btn-primary btn-xs">
+                                                                  data data-toggle="modal"
+                                                                  data-target="#editmenu"
+                                                                  class="btn btn-primary btn-xs btn-rounded btn-outline">
                                                                   <i class="fa fa-pencil"></i> 编辑
                                                             </span>
-                                                            <a href="#" class="btn btn-primary btn-xs">
+                                                            <a href="#" class="btn btn-primary btn-xs btn-rounded btn-outline">
                                                                 <i class="fa fa-trash-o"></i> 删除
                                                             </a>
                                                         </td>
@@ -154,7 +142,7 @@
                             <div class="pull-right pagination">
                                 <!-- Small button group -->
                                 <div class="btn-group m-l-xs m-r-xs">
-                                    <button type="button" class="p-xxs btn btn-primary btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button type="button" class="p-xxs btn btn-primary btn-xs btn-outline" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         跳转页 <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">

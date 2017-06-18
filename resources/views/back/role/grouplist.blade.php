@@ -27,8 +27,8 @@
                     <div class="row">
                         <div class="col-sm-9 m-b-xs">
                             <ul>
-                                <span data-toggle="modal" data-target="#addgroup" class="btn btn-sm btn-primary">
-                                    <i class="fa fa-plus"></i> 创建权限组
+                                <span data-toggle="modal" data-target="#addgroup" class="btn btn-sm btn-outline btn-primary">
+                                    <i class="fa fa-plus"> </i> 创建权限组
                                 </span>
                             </ul>
                         </div>
@@ -56,16 +56,23 @@
                                         <td>{{ $value->role_name }}</td>
                                         <td>{{ $value->created_at }}</td>
                                         <td>
-                                            <a href="/admin/role/groupedit/21" class="btn btn-primary btn-rounded  btn-xs"><i class="fa fa-search"></i> 编辑</a>
                                             <span data-id="{{ $value->id }}"
                                                   data-role_name="{{ $value->role_name }}"
                                                   data-role_description="{{ $value->role_description }}"
-                                                  data data-toggle="modal" data-target="#editgroup" class="btn btn-primary btn-xs">
-                                                <i class="fa fa-pencil"></i> 编辑
+                                                  data data-toggle="modal" data-target="#editgroup" class="btn btn-primary btn-rounded btn-outline btn-xs">
+                                                <i class="fa fa-pencil"> </i> 编辑
                                             </span>
-                                            <span onClick="delGroup({{$value->id}})" class="btn btn-primary btn-xs">
-                                                <i class="fa fa-trash-o"></i> 删除
+                                            <span onClick="delGroup({{$value->id}})" class="btn btn-primary btn-rounded btn-xs btn-outline">
+                                                <i class="fa fa-trash-o"> </i> 删除
                                             </span>
+
+                                            <a href="/admin/role/createrole/21" class="btn btn-primary btn-rounded btn-outline btn-xs">
+                                                <i class="fa fa-plus"> </i> 创建角色
+                                            </a>
+                                            <a href="/admin/role/grouprole/21" class="btn btn-primary btn-rounded btn-outline btn-xs">
+                                                <i class="fa fa-list-ul"> </i> 角色列表
+                                            </a>
+
                                         </td>
                                     </tr>
 
@@ -88,7 +95,7 @@
                                     <div class="pull-right pagination">
                                         <!-- Small button group -->
                                         <div class="btn-group m-l-xs m-r-xs">
-                                            <button type="button" class="p-xxs btn btn-primary btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button type="button" class="p-xxs btn btn-primary btn-xs btn-outline" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 跳转页 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu">

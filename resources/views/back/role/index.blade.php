@@ -27,7 +27,7 @@
                     <div class="row">
                         <div class="col-sm-9 m-b-xs">
                             <ul>
-                            <a class="btn btn-sm btn-primary" href="/back/role/add">
+                            <a class="btn btn-sm btn-primary btn-outline" href="/back/role/add">
                                 <i class="fa fa-plus"></i> 创建用户
                             </a>
                             </ul>
@@ -78,10 +78,10 @@
                                           data-group_id="{{ $value->group_id }}"
                                           data-role_id="{{ $value->role_id }}"
                                           data-status="{{ $value->status }}"
-                                          data data-toggle="modal" data-target="#edit" class="btn btn-primary btn-xs">
+                                          data data-toggle="modal" data-target="#edit" class="btn btn-primary btn-xs btn-rounded btn-outline">
                                         <i class="fa fa-pencil"></i> 编辑
                                     </span>
-                                    <span onClick="deleteRole({{$value->id}})" class="btn btn-primary btn-xs">
+                                    <span onClick="deleteRole({{$value->id}})" class="btn btn-primary btn-xs btn-rounded btn-outline">
                                         <i class="fa fa-trash-o"></i> 删除
                                     </span>
                                         </td>
@@ -106,7 +106,7 @@
                                     <div class="pull-right pagination">
                                         <!-- Small button group -->
                                         <div class="btn-group m-l-xs m-r-xs">
-                                            <button type="button" class="p-xxs btn btn-primary btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button type="button" class="p-xxs btn btn-primary btn-xs btn-outline" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 跳转页 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu">

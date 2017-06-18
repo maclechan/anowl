@@ -182,7 +182,7 @@ class RoleController extends BaseController
             if(count($data)>0){
                 $data = [
                     'code' => -200,
-                    'msg'  => '请先清空该组下面的所有角成员方可删除.',
+                    'msg'  => '请先清空该组的所有角色成员.',
                 ];
                 return response()->json($data);
             }

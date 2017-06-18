@@ -1,4 +1,4 @@
-@section('title', '用户权限 - 创建用户')
+@section('title', '用户权限-创建用户')
 @extends('back.layout')
 @section('content')
 

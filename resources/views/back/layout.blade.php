@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>@yield('title') - 管理后台</title>
+    <title>管理后台-@yield('title')</title>
 
     <link href="{{ asset('assets/bootstrap-3.3.7/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet">

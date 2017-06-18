@@ -15,7 +15,7 @@ class AdminRole extends BaseModel
 
     protected $primaryKey = 'id';
 
-    //protected $fillable = ['action_name', 'url', 'icon_class', 'sort', 'is_show'];
+    protected $fillable = ['role_name', 'role_description', 'parent_id', 'type'];
 
     /**
      * 验证规则

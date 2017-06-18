@@ -1,4 +1,4 @@
-@section('title', '用户权限-用户列表')
+@section('title', '用户权限-用户组列表')
 @extends('back.layout')
 @section('content')
     <div class="row">
@@ -27,9 +27,9 @@
                     <div class="row">
                         <div class="col-sm-9 m-b-xs">
                             <ul>
-                            <a class="btn btn-sm btn-primary" href="/back/role/add">
-                                <i class="fa fa-plus"></i> 创建用户
-                            </a>
+                                <span data-toggle="modal" data-target="#addgroup" class="btn btn-sm btn-primary">
+                                    <i class="fa fa-plus"></i> 创建权限组
+                                </span>
                             </ul>
                         </div>
                         <div class="col-sm-3">
@@ -44,13 +44,7 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>登陆帐号</th>
-                                    <th>E-mail</th>
-                                    <th>姓名</th>
-                                    <th>手机</th>
-                                    <th>部门</th>
-                                    <th>角色</th>
-                                    <th>帐号状态</th>
+                                    <th>权限组名称</th>
                                     <th>创建时间</th>
                                     <th>操作</th>
                                 </tr>
@@ -58,32 +52,20 @@
                                 <tbody>
                                 @foreach ($pages as $value)
                                     <tr>
+                                        <td>{{ $value->id }}</td>
+                                        <td>{{ $value->role_name }}</td>
+                                        <td>{{ $value->created_at }}</td>
                                         <td>
-                                            {{ $value->id }}
-                                        </td>
-                                        <td>{{ $value->name }}</td>
-                                        <td>{{ $value->email }}</td>
-                                        <td>{{ $value->nick_name }}</td>
-                                        <td>{{ $value->mobile }}</td>
-                                        <td>{{ $value->group_id }}</td>
-                                        <td>{{ $value->role_id }}</td>
-                                        <td>{!! $value->status?'<span class="badge badge-danger">己禁用</span>':'<span class="badge badge-primary">己启用</span>' !!}</td>
-                                        <td>{{ date('Y-m-d/H:i:s',$value->created_at) }}</td>
-                                        <td>
-                                    <span data-id="{{ $value->id }}"
-                                          data-name="{{ $value->name }}"
-                                          data-email="{{ $value->email }}"
-                                          data-nick_name="{{ $value->nick_name }}"
-                                          data-mobile="{{ $value->mobile }}"
-                                          data-group_id="{{ $value->group_id }}"
-                                          data-role_id="{{ $value->role_id }}"
-                                          data-status="{{ $value->status }}"
-                                          data data-toggle="modal" data-target="#edit" class="btn btn-primary btn-xs">
-                                        <i class="fa fa-pencil"></i> 编辑
-                                    </span>
-                                    <span onClick="deleteRole({{$value->id}})" class="btn btn-primary btn-xs">
-                                        <i class="fa fa-trash-o"></i> 删除
-                                    </span>
+                                            <a href="/admin/role/groupedit/21" class="btn btn-primary btn-rounded  btn-xs"><i class="fa fa-search"></i> 编辑</a>
+                                            <span data-id="{{ $value->id }}"
+                                                  data-role_name="{{ $value->role_name }}"
+                                                  data-role_description="{{ $value->role_description }}"
+                                                  data data-toggle="modal" data-target="#editgroup" class="btn btn-primary btn-xs">
+                                                <i class="fa fa-pencil"></i> 编辑
+                                            </span>
+                                            <span onClick="delGroup({{$value->id}})" class="btn btn-primary btn-xs">
+                                                <i class="fa fa-trash-o"></i> 删除
+                                            </span>
                                         </td>
                                     </tr>
 
@@ -129,7 +111,7 @@
     </div>
 
     <script>
-        function deleteRole(id){
+        function delGroup(id){
             var id = id;
             swal({
                 title: "确定删除吗?",
@@ -140,23 +122,28 @@
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 closeOnConfirm: false
-            },
-            function(){
+            }, function(){
                 $.ajax({
                     type: 'POST',
-                    url: '/back/role/del',
+                    url: '/back/role/delgroup',
                     data: {'id':id, '_token':"<?=csrf_token()?>"},
                     dataType: "json",
                     success: function (data) {
-                        swal("Deleted!", data.msg, "success");
-                        window.location = '/back/role/index';
+                        if(data.code == -200){
+                            swal("删除失败", data.msg, "error");
+                        }else {
+                            swal("删除成功", data.msg, "success");
+                        }
+
                     },
                     error: function (data) {
-                        swal("Error!", data.msg, "error");
+                        swal("删除失败", data.msg, "error");
                     }
                 });
             });
         };
     </script>
-@include('back.role.edit')
+
+@include('back.role.groupadd')
+@include('back.role.groupedit')
 @endsection

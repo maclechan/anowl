@@ -28,8 +28,8 @@
                 <div class="row">
                     <div class="col-sm-9 m-b-xs">
                         <ul>
-                            <span data-toggle="modal" data-target="#addmenu" data-toggle="tooltip" data-placement="top" title="添加菜单权限" class="btn btn-sm btn-primary">
-                                <i class="fa fa-plus"></i> 添加菜单权限
+                            <span data-toggle="modal" data-target="#addmenu" class="btn btn-sm btn-primary">
+                                <i class="fa fa-plus"></i> 创建菜单
                             </span>
                         </ul>
                     </div>

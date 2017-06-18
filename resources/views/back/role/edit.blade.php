@@ -1,4 +1,4 @@
-<!--添加菜单-->
+<!--修改用户-->
 <div class="modal inmodal fade" id="edit" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

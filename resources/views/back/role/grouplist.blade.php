@@ -56,10 +56,29 @@
                                         <td>{{ $value->role_name }}</td>
                                         <td>{{ $value->created_at }}</td>
                                         <td>
-                                            <span data-id="{{ $value->id }}"
+                                        @if($tag == 'role')
+                                            <span data-role_id="{{ $value->id }}"
                                                   data-role_name="{{ $value->role_name }}"
+                                                  data-role_pid="{{ $value->parent_id }}"
                                                   data-role_description="{{ $value->role_description }}"
-                                                  data data-toggle="modal" data-target="#editgroup" class="btn btn-primary btn-rounded btn-outline btn-xs">
+                                                  data-toggle="modal" data-target="#editrole" class="btn btn-primary btn-rounded btn-outline btn-xs">
+                                                <i class="fa fa-pencil"> </i> 编辑
+                                            </span>
+                                            <span onClick="delGroup({{$value->id}})" class="btn btn-primary btn-rounded btn-xs btn-outline">
+                                                <i class="fa fa-trash-o"> </i> 删除
+                                            </span>
+
+                                            <a href="/admin/role/createrole/21" class="btn btn-primary btn-rounded btn-outline btn-xs">
+                                                <i class="fa fa-plus"> </i> 编辑权限
+                                            </a>
+                                            <a href="/back/role/grouplist?role={{ $value->id }}" class="btn btn-primary btn-rounded btn-outline btn-xs">
+                                                <i class="fa fa-list-ul"> </i> 用户列表
+                                            </a>
+                                        @else
+                                            <span data-group_id="{{ $value->id }}"
+                                                  data-group_name="{{ $value->role_name }}"
+                                                  data-group_description="{{ $value->role_description }}"
+                                                  data-toggle="modal" data-target="#editgroup" class="btn btn-primary btn-rounded btn-outline btn-xs">
                                                 <i class="fa fa-pencil"> </i> 编辑
                                             </span>
                                             <span onClick="delGroup({{$value->id}})" class="btn btn-primary btn-rounded btn-xs btn-outline">
@@ -69,10 +88,10 @@
                                             <a href="/admin/role/createrole/21" class="btn btn-primary btn-rounded btn-outline btn-xs">
                                                 <i class="fa fa-plus"> </i> 创建角色
                                             </a>
-                                            <a href="/admin/role/grouprole/21" class="btn btn-primary btn-rounded btn-outline btn-xs">
+                                            <a href="/back/role/grouplist?role={{ $value->id }}" class="btn btn-primary btn-rounded btn-outline btn-xs">
                                                 <i class="fa fa-list-ul"> </i> 角色列表
                                             </a>
-
+                                        @endif
                                         </td>
                                     </tr>
 

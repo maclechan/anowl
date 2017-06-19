@@ -17,10 +17,9 @@
     <link href="{{ asset('css/back/plugins/checkbox/checkbox.css') }}" rel="stylesheet">
     <!--弹出框-->
     <link href="{{ asset('css/back/plugins/alert/sweetalert.css') }}" rel="stylesheet">
-
     <!-- Mainly scripts -->
     <script type="text/javascript" src="{{ asset('js/back/jquery-2.1.1.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/bootstrap-3.3.7/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/back/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/back/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 
@@ -31,10 +30,14 @@
     <script type="text/javascript" src="{{ asset('js/back/plugins/validate/jquery.validate.min.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('js/back/plugins.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/bootstrap/js/bootstrap-select.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/bootstrap-3.3.7/js/bootstrap-select.js') }}"></script>
     <!--弹出框-->
     <script type="text/javascript" src="{{ asset('js/back/plugins/alert/sweetalert.min.js') }}"></script>
     <!-- End Mainly scripts -->
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
 
 </head>
 

@@ -131,14 +131,30 @@ class RoleController extends BaseController
     }
 
     /**
-     * 权限组列表
+     * 权限组列表/角色列表
      */
     public function getGrouplist()
     {
-        $_data = AdminRole::where('parent_id', 0)->orderBy('id','ASC')->paginate(config('system.page_limit'));
+        //角色列表
+        if(Input::get('role')){
+            $role = Input::get('role');
+            $roles = AdminRole::where('parent_id','<>',0)
+                                    ->where('parent_id', $role)
+                                    ->orderBy('id', 'ASC')
+                                    ->paginate(config('system.page_limit'));
+            //权限组
+            $groups = AdminRole::where('parent_id',0)->get();
+            return view('back.role.grouplist',[
+                'tag' => 'role',
+                'groups' => $groups,
+                'pages' => $roles,
+            ]);
+        }
 
+        //权限组列表
+        $groups = AdminRole::where('parent_id', 0)->orderBy('id','ASC')->paginate(config('system.page_limit'));
         return view('back.role.grouplist',[
-            'pages' => $_data,
+            'pages' => $groups,
         ]);
     }
 
@@ -187,6 +203,16 @@ class RoleController extends BaseController
                 return response()->json($data);
             }
 
+            //权限己分配过不能删除
+            $user_data = AdminUsers::where('group_id',$id)->orwhere('role_id',$id)->first();
+            if(count($user_data)>0){
+                $data = [
+                    'code' => -200,
+                    'msg'  => '该权限己分配无法删除.',
+                ];
+                return response()->json($data);
+            }
+
             $is_del = $model->where('id',$id)->delete();
             if(!$is_del) {
                 $data = [
@@ -202,5 +228,30 @@ class RoleController extends BaseController
             ];
             return response()->json($data);
         }
+    }
+
+    /**
+     * 角色列表
+     */
+    /*public function getRolelist()
+    {
+        $_data = AdminRole::where('parent_id','<>', 0)->orderBy('id','ASC')->paginate(config('system.page_limit'));
+
+        return view('back.role.grouplist',[
+            'pages' => $_data,
+        ]);
+    }*/
+
+    /**
+     * 创建角色
+     */
+    public function postAddrole()
+    {
+        $input = Input::all();
+        $is_save = AdminRole::create($input);
+        if(!$is_save){
+            return redirect('/back/role/grouplist')->with('msg', '权限组创建失败.');
+        }
+        return redirect('/back/role/grouplist')->with('msg', '权限组创建成功.');
     }
 }

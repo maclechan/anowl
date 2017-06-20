@@ -20,14 +20,26 @@ class RoleController extends BaseController
     /**
      * 用户列表
      */
-    public function getIndex()
+    public function getIndex($group_id=0)
     {
-        $_data = DB::table('admin_users')
-            ->orderBy('id', 'ASC')
-            ->paginate(config('system.page_limit'));
+        #角色
+        if($group_id){
+            $role_group = AdminRoleGroupModel::getRoleGroupByType($group_id,1);
+            die(json_encode($role_group));
+        }
+        #权限组
+        $group_data = AdminRole::getRoleGroupByType(0);
 
+
+
+        //权限组列表
+        $groups = AdminRole::where('parent_id', 0)->orderBy('id','ASC')->get();
+
+
+        $users = AdminUsers::orderBy('id','ASC')->paginate(config('system.page_limit'));
         return view('back.role.index',[
-            'pages' => $_data,
+            'pages' => $users,
+            'groups' => $groups
         ]);
     }
 

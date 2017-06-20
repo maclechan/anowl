@@ -72,6 +72,16 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-lg-2 control-label">权限组 </label>
+                            <div class="col-lg-2">
+                                <select class="select form-control" id="group_id" name="group_id">
+                                    @foreach($groups as $v)
+                                        <option @if($role_id==$v->id) selected="selected" @endif value="{{ $v->id }}">{{ $v->role_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-lg-2 control-label">是否禁用</label>
                             <div class="col-lg-4">
                                 <div class="radio radio-success radio-inline">

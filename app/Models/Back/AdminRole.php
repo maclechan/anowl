@@ -53,4 +53,22 @@ class AdminRole extends BaseModel
         ];
     }
 
+    /**
+     * 获取权限/角色数据
+     * @param $group_id 权限组(角色) ID
+     * @param int $type (0=权限组 1=角色)
+     * @return array
+     */
+    static function getRoleGroupByType($group_id,$type = 0){
+        $roleModel = self::where('type',$type);
+        if($group_id){
+            $roleModel = $roleModel->where('parent_id',$group_id);
+        }
+        $group_data = $roleModel->orderBy('created_at','ASC')
+            ->get()
+            ->toArray();
+
+        return $group_data;
+    }
+
 }

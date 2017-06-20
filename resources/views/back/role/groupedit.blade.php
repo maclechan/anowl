@@ -67,13 +67,14 @@
             <form action="{{ url('back/role/editgroup') }}" method="post" class="form-horizontal">
                 {!! csrf_field() !!}
                 <input type="hidden" class="form-control" id="role_id" name="id">
+                <input type="hidden" value="{{ $role_id }}" name="role_id">
                 <div class="modal-body">
                     <div class="form-group">
                         <label class="col-lg-4 control-label">所属权限组 *</label>
-                        <div class="col-lg-4">
-                            <select class="parent_id form-control" id="parent_id" name="parent_id">
+                        <div class="col-md-4">
+                            <select class="select form-control" id="parent_id" name="parent_id">
                                 @foreach($groups as $v)
-                                    <option value="{{ $v->id }}">{{ $v->role_name }}</option>
+                                    <option @if($role_id==$v->id) selected="selected" @endif value="{{ $v->id }}">{{ $v->role_name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -100,25 +101,19 @@
         </div>
     </div>
 </div>
-
 <script type="text/javascript">
     $("document").ready(function(){
-       // $('.parent_id').select2();
         $('#editrole').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var role_id = button.data('role_id') // Extract info from data-* attributes
             var role_name = button.data('role_name')
             var role_description = button.data('role_description')
             var role_pid = button.data('role_pid')
-
-            $("#parent_id").val(role_pid);
-
             var modal = $(this)
             modal.find('#role_id').val(role_id)
             modal.find('#role_name').val(role_name)
             modal.find('#role_description').val(role_description)
-
-
+            //$("#parent_id").val(role_pid);
         })
     });
 

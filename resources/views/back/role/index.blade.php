@@ -78,7 +78,7 @@
                                           data-group_id="{{ $value->group_id }}"
                                           data-role_id="{{ $value->role_id }}"
                                           data-status="{{ $value->status }}"
-                                          data data-toggle="modal" data-target="#edit" class="btn btn-primary btn-xs btn-rounded btn-outline">
+                                          data-toggle="modal" data-target="#edit" class="btn btn-primary btn-xs btn-rounded btn-outline">
                                         <i class="fa fa-pencil"></i> 编辑
                                     </span>
                                     <span onClick="deleteRole({{$value->id}})" class="btn btn-primary btn-xs btn-rounded btn-outline">
@@ -140,19 +140,18 @@
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 closeOnConfirm: false
-            },
-            function(){
+            }, function(){
                 $.ajax({
                     type: 'POST',
                     url: '/back/role/del',
                     data: {'id':id, '_token':"<?=csrf_token()?>"},
                     dataType: "json",
                     success: function (data) {
-                        swal("Deleted!", data.msg, "success");
-                        window.location = '/back/role/index';
+                        swal("删除成功", data.msg, "success");
+                        location.reload();
                     },
                     error: function (data) {
-                        swal("Error!", data.msg, "error");
+                        swal("删除失败", data.msg, "error");
                     }
                 });
             });

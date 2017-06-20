@@ -27,9 +27,15 @@
                     <div class="row">
                         <div class="col-sm-9 m-b-xs">
                             <ul>
-                                <span data-toggle="modal" data-target="#addgroup" class="btn btn-sm btn-outline btn-primary">
-                                    <i class="fa fa-plus"> </i> 创建权限组
-                                </span>
+                                @if($tag == 'role')
+                                    <span data-toggle="modal" data-target="#addrole" class="btn btn-sm btn-outline btn-primary">
+                                        <i class="fa fa-plus"> </i> 创建角色
+                                    </span>
+                                @else
+                                    <span data-toggle="modal" data-target="#addgroup" class="btn btn-sm btn-outline btn-primary">
+                                        <i class="fa fa-plus"> </i> 创建权限组
+                                    </span>
+                                @endif
                             </ul>
                         </div>
                         <div class="col-sm-3">
@@ -68,10 +74,10 @@
                                                 <i class="fa fa-trash-o"> </i> 删除
                                             </span>
 
-                                            <a href="/admin/role/createrole/21" class="btn btn-primary btn-rounded btn-outline btn-xs">
+                                            <a href="/back/role/createrole/21" class="btn btn-primary btn-rounded btn-outline btn-xs">
                                                 <i class="fa fa-plus"> </i> 编辑权限
                                             </a>
-                                            <a href="/back/role/grouplist?role={{ $value->id }}" class="btn btn-primary btn-rounded btn-outline btn-xs">
+                                            <a href="" class="btn btn-primary btn-rounded btn-outline btn-xs">
                                                 <i class="fa fa-list-ul"> </i> 用户列表
                                             </a>
                                         @else
@@ -85,11 +91,8 @@
                                                 <i class="fa fa-trash-o"> </i> 删除
                                             </span>
 
-                                            <a href="/admin/role/createrole/21" class="btn btn-primary btn-rounded btn-outline btn-xs">
-                                                <i class="fa fa-plus"> </i> 创建角色
-                                            </a>
-                                            <a href="/back/role/grouplist?role={{ $value->id }}" class="btn btn-primary btn-rounded btn-outline btn-xs">
-                                                <i class="fa fa-list-ul"> </i> 角色列表
+                                            <a href="/back/role/grouplist/{{ $value->id }}" class="btn btn-primary btn-rounded btn-outline btn-xs">
+                                                <i class="fa fa-plus"> </i> 角色管理
                                             </a>
                                         @endif
                                         </td>
@@ -159,6 +162,7 @@
                             swal("删除失败", data.msg, "error");
                         }else {
                             swal("删除成功", data.msg, "success");
+                            location.reload();
                         }
 
                     },

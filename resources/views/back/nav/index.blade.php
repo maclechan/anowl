@@ -74,7 +74,7 @@
                                           data-icon="{{ $value->icon_class }}"
                                           data-sort="{{ $value->sort }}"
                                           data-show="{{ $value->is_show }}"
-                                          data data-toggle="modal"
+                                          data-toggle="modal"
                                           data-target="#editmenu"
                                           class="btn btn-primary btn-xs btn-rounded btn-outline">
                                         <i class="fa fa-pencil"></i> 编辑
@@ -181,11 +181,11 @@
                 data: {'nav_id':nav_id, '_token':"<?=csrf_token()?>"},
                 dataType: "json",
                 success: function (data) {
-                    swal("Deleted!", data.msg, "success");
-                    window.location = '/back/nav/index';
+                    swal("删除成功", data.msg, "success");
+                    location.reload();
                 },
                 error: function (data) {
-                    swal("Error!", data.msg, "error");
+                    swal("删除失败", data.msg, "error");
                 }
             });
         });

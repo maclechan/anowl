@@ -36,6 +36,24 @@
                     {!! csrf_field() !!}
                     <div class="modal-body">
                         <div class="form-group">
+                            <label class="col-lg-2 control-label">权限组/角色</label>
+                            <div class="col-lg-2">
+                                <select class="select form-control" id="group_id" name="group_id" required>
+                                    <option>选择权限组</option>
+                                    @foreach($groups as $v)
+                                        <option value="{{ $v['id'] }}">{{ $v['role_name'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" id='hide_role_id' style="display:none;" required>
+                            <label class="col-lg-2 control-label"> </label>
+                            <div class="col-lg-2">
+                                <select class="select form-control" id="role_id" name="role_id">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-lg-2 control-label">登陆帐号 *</label>
                             <div class="col-lg-4">
                                 <input type="text" value="{{ old('name') }}" class="form-control"  name="name" id="name" required placeholder="尽量使用英文帐号登陆" />
@@ -69,16 +87,6 @@
                             <label class="col-lg-2 control-label">手机号 </label>
                             <div class="col-lg-4">
                                 <input type="text" value="{{ old('mobile') }}" class="form-control"  name="mobile" id="mobile"  placeholder="如：13251079793" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">权限组 </label>
-                            <div class="col-lg-2">
-                                <select class="select form-control" id="group_id" name="group_id">
-                                    @foreach($groups as $v)
-                                        <option @if($role_id==$v->id) selected="selected" @endif value="{{ $v->id }}">{{ $v->role_name }}</option>
-                                    @endforeach
-                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -116,6 +124,30 @@
         });
     });
 </script>
+<script type="text/javascript">
+    $('#group_id').change(function(){
+        var group_id = $("#group_id").val();
+        $("#role_id").empty();
+        $("#role_id").append("<option>选择角色</option>");
 
+        if(!group_id){
+            $("#hide_role_id").hide();
+            return false;
+        }
+        var parame = {
+            url:"{{url('/back/role/add/')}}/"+group_id,
+            type:'get',
+            dataType:"json",
+        };
+
+        $.ajax(parame).done(function(data){
+            $("#hide_role_id").show();
+            for(var i=0; i<data.length;i++) {
+                $("#role_id").append("<option value='"+data[i].id+"'>"+data[i].role_name+"</option>");
+            }
+            $('#role_id').selectpicker('refresh');
+        });
+    });
+</script>
 
 @endsection

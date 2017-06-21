@@ -15,6 +15,70 @@
                 <input type="hidden" class="form-control" id="id" name="id">
                 <div class="modal-body">
                     <div class="form-group">
+                        <label class="col-lg-4 control-label">权限组/角色</label>
+                        <div class="col-lg-2">
+                            <select class="select form-control" id="group_id" name="group_id" required>
+                                @foreach($groups as $v)
+                                    <option value="{{ $v['id'] }}">{{ $v['role_name'] }}</option>
+                                @endforeach
+                                    <option value="3">AAA</option>
+                                    <option value="4">BBB</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" id="hide_role_id" required>
+                        <label class="col-lg-4 control-label"> </label>
+                        <div class="col-lg-2">
+                            <select class="select form-control" id="role_id" name="role_id"></select>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+
+                        $("#group_id").val(3);
+                        function getrole(group_id){
+                            $("#group_id").val(4);
+                            //$("#group_id").val(group_id);
+
+
+                            $("#role_id").empty();
+                            var parame = {
+                                url:"{{url('/back/role/add/')}}/"+group_id,
+                                type:'get',
+                                dataType:"json",
+                            };
+
+                            $.ajax(parame).done(function(data){
+                                for(var i=0; i<data.length;i++) {
+                                    $("#role_id").append("<option value='"+data[i].id+"'>"+data[i].role_name+"</option>");
+                                }
+                                $('#role_id').selectpicker('refresh');
+                            });
+                        };
+
+                        $('#group_id').change(function(){
+                            var group_id = $("#group_id").val();
+                            $("#role_id").empty();
+
+                            if(!group_id){
+                                $("#hide_role_id").hide();
+                                return false;
+                            }
+                            var parame = {
+                                url:"{{url('/back/role/add/')}}/"+group_id,
+                                type:'get',
+                                dataType:"json",
+                            };
+
+                            $.ajax(parame).done(function(data){
+                                $("#hide_role_id").show();
+                                for(var i=0; i<data.length;i++) {
+                                    $("#role_id").append("<option value='"+data[i].id+"'>"+data[i].role_name+"</option>");
+                                }
+                                $('#role_id').selectpicker('refresh');
+                            });
+                        });
+                    </script>
+                    <div class="form-group">
                         <label class="col-lg-4 control-label">登陆帐号 </label>
                         <div class="col-lg-4">
                             <input type="text" value="{{ old('name') }}" disabled class="form-control"  name="name" id="name" required placeholder="尽量使用英文帐号登陆" />

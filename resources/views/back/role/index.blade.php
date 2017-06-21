@@ -78,7 +78,9 @@
                                           data-group_id="{{ $value->group_id }}"
                                           data-role_id="{{ $value->role_id }}"
                                           data-status="{{ $value->status }}"
-                                          data-toggle="modal" data-target="#edit" class="btn btn-primary btn-xs btn-rounded btn-outline">
+                                          data-toggle="modal" data-target="#edit"
+                                          class="btn btn-primary btn-xs btn-rounded btn-outline"
+                                          onClick="getrole({{$value->group_id}})">
                                         <i class="fa fa-pencil"></i> 编辑
                                     </span>
                                     <span onClick="deleteRole({{$value->id}})" class="btn btn-primary btn-xs btn-rounded btn-outline">
@@ -128,34 +130,34 @@
         </div>
     </div>
 
-    <script>
-        function deleteRole(id){
-            var id = id;
-            swal({
-                title: "确定删除吗?",
-                text: "此次操作不可逆!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#1ab394",
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            }, function(){
-                $.ajax({
-                    type: 'POST',
-                    url: '/back/role/del',
-                    data: {'id':id, '_token':"<?=csrf_token()?>"},
-                    dataType: "json",
-                    success: function (data) {
-                        swal("删除成功", data.msg, "success");
-                        location.reload();
-                    },
-                    error: function (data) {
-                        swal("删除失败", data.msg, "error");
-                    }
-                });
+<script>
+    function deleteRole(id){
+        var id = id;
+        swal({
+            title: "确定删除吗?",
+            text: "此次操作不可逆!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#1ab394",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            closeOnConfirm: false
+        }, function(){
+            $.ajax({
+                type: 'POST',
+                url: '/back/role/del',
+                data: {'id':id, '_token':"<?=csrf_token()?>"},
+                dataType: "json",
+                success: function (data) {
+                    swal("删除成功", data.msg, "success");
+                    location.reload();
+                },
+                error: function (data) {
+                    swal("删除失败", data.msg, "error");
+                }
             });
-        };
-    </script>
+        });
+    };
+</script>
 @include('back.role.edit')
 @endsection

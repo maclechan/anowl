@@ -17,31 +17,38 @@ use App\Models\Back\AdminUsers;
 
 class RoleController extends BaseController
 {
-    /**
-     * 用户列表
+    /**用户列表
+     * @param int $id 用户ID
      */
-    public function getIndex($group_id=0)
+    public function getIndex($id)
     {
-        #角色
-        if($group_id){
-            $role_group = AdminRoleGroupModel::getRoleGroupByType($group_id,1);
-            die(json_encode($role_group));
+        #编辑用户信息展示用
+        if ($id > 0) {
+            $userlist = AdminUsers::find($id);
+            $group_id = $userlist->group_id;
+            $role_data = AdminRole::getRoleGroupByType($group_id,1);
+            return response()->json($role_data);
         }
+
         #权限组
-        $group_data = AdminRole::getRoleGroupByType(0);
-
-
-
-        //权限组列表
-        $groups = AdminRole::where('parent_id', 0)->orderBy('id','ASC')->get();
-
+        $groups = AdminRole::getRoleGroupByType(0);
+        #角色
+        //$roles  = AdminRole::getRoleGroupByType($group_id,1);
 
         $users = AdminUsers::orderBy('id','ASC')->paginate(config('system.page_limit'));
         return view('back.role.index',[
             'pages' => $users,
-            'groups' => $groups
+            'groups' => $groups,
         ]);
     }
+
+    /**获取角色列表
+     * @param $id 用户ID
+     */
+    /*public function getAjaxroles()
+    {
+        //
+    }*/
 
     /**
      * 创建用户
@@ -56,15 +63,27 @@ class RoleController extends BaseController
                 'password' => bcrypt($data['password']),
                 'nick_name' => $data['nick_name'],
                 'mobile' => $data['mobile'],
+                'group_id' => $data['group_id'],
+                'role_id' => $data['role_id'],
                 'status' => $data['status'],
             ]
         );
     }
 
     //显示添加用户视图
-    public function getAdd(Request $request)
+    public function getAdd(Request $request, $group_id=0)
     {
-        return view('back.role.add');
+        #角色
+        if($group_id){
+            $role_group = AdminRole::getRoleGroupByType($group_id,1);
+            return response()->json($role_group);
+        }
+
+        #权限组
+        $groups = AdminRole::getRoleGroupByType(0);
+        return view('back.role.add',[
+            'groups' => $groups
+        ]);
     }
 
     /**
@@ -82,8 +101,10 @@ class RoleController extends BaseController
         }
 
         //校验成功入库
-        $this->create($request->all());
-        return redirect('/back/role/index');
+        $is_save = $this->create($request->all());
+        if($is_save){
+            return redirect('/back/role/index')->with('msg', '创建成功.');
+        }
 
     }
 
@@ -98,10 +119,12 @@ class RoleController extends BaseController
         $info = $model->where('id', $input['id'])->first()->toArray();
 
         $filte = [
-            'email'              => $input['email'],
-            'nick_name'       => $input['nick_name'],
-            'mobile'           => $input['mobile'],
-            'status'                   => $input['status'],
+            'email' => $input['email'],
+            'nick_name' => $input['nick_name'],
+            'mobile' => $input['mobile'],
+            'group_id' => $input['group_id'],
+            'role_id' => $input['role_id'],
+            'status' => $input['status'],
         ];
 
         if($input['password']) {

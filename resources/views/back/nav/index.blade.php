@@ -96,7 +96,7 @@
                                                         <td>{{ $_v->controller_name }}</td>
                                                         <td>{{ $_v->action_name }}</td>
                                                         <td>{{ $_v->url }}</td>
-                                                        <td>{!! $value->is_show?'<span class="badge badge-primary">导航</span>':'<span class="badge badge-danger">隐藏</span>' !!}</td>
+                                                        <td>{!! $_v->is_show?'<span class="badge badge-primary">导航</span>':'<span class="badge badge-danger">隐藏</span>' !!}</td>
                                                         <td>
                                                             <span data-id="{{ $_v->nav_id }}"
                                                                   data-name="{{ $_v->nav_name }}"

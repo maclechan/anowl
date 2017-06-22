@@ -17,38 +17,23 @@ use App\Models\Back\AdminUsers;
 
 class RoleController extends BaseController
 {
-    /**用户列表
-     * @param int $id 用户ID
+    /**
+     * 用户列表
      */
-    public function getIndex($id)
+    public function getIndex()
     {
-        #编辑用户信息展示用
-        if ($id > 0) {
-            $userlist = AdminUsers::find($id);
-            $group_id = $userlist->group_id;
-            $role_data = AdminRole::getRoleGroupByType($group_id,1);
-            return response()->json($role_data);
-        }
-
-        #权限组
-        $groups = AdminRole::getRoleGroupByType(0);
+        #权限组   --同页面编辑使用
+        //$groups = AdminRole::getRoleGroupByType(0);
         #角色
         //$roles  = AdminRole::getRoleGroupByType($group_id,1);
 
         $users = AdminUsers::orderBy('id','ASC')->paginate(config('system.page_limit'));
         return view('back.role.index',[
             'pages' => $users,
-            'groups' => $groups,
+
+            //'groups' => $groups,
         ]);
     }
-
-    /**获取角色列表
-     * @param $id 用户ID
-     */
-    /*public function getAjaxroles()
-    {
-        //
-    }*/
 
     /**
      * 创建用户
@@ -70,10 +55,12 @@ class RoleController extends BaseController
         );
     }
 
-    //显示添加用户视图
-    public function getAdd(Request $request, $group_id=0)
+    /**创建用户展示视图
+     * @param int $group_id 权限ID
+     */
+    public function getAdd($group_id=0)
     {
-        #角色
+        #获取角色
         if($group_id){
             $role_group = AdminRole::getRoleGroupByType($group_id,1);
             return response()->json($role_group);
@@ -108,6 +95,29 @@ class RoleController extends BaseController
 
     }
 
+    /**编辑用户信息
+     * @param $id 用户ID
+     * @param Request $req
+     */
+    public function getEdit($id)
+    {
+        $id = intval($id);
+
+        $user = AdminUsers::find($id);
+        if($user){
+            $group_id   = $user->group_id;
+            $groups = AdminRole::getRoleGroupByType(0);
+            $roles  = AdminRole::getRoleGroupByType($group_id,1);
+            return view('back.role.add',[
+                'id' => $id,
+                'user'  => $user,
+                'groups' => $groups,
+                'roles'  => $roles
+            ]);
+        }else{
+            return redirect('/back/role/index')->with('msg', '查询数据错误.');
+        }
+    }
     /**
      * 修改用户
      */

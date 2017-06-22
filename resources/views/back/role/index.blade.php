@@ -58,9 +58,7 @@
                                 <tbody>
                                 @foreach ($pages as $value)
                                     <tr>
-                                        <td>
-                                            {{ $value->id }}
-                                        </td>
+                                        <td>{{ $value->id }}</td>
                                         <td>{{ $value->name }}</td>
                                         <td>{{ $value->email }}</td>
                                         <td>{{ $value->nick_name }}</td>
@@ -70,7 +68,7 @@
                                         <td>{!! $value->status?'<span class="badge badge-danger">己禁用</span>':'<span class="badge badge-primary">己启用</span>' !!}</td>
                                         <td>{{ date('Y-m-d/H:i:s',$value->created_at) }}</td>
                                         <td>
-                                    <span data-id="{{ $value->id }}"
+                                    {{--<span data-id="{{ $value->id }}"
                                           data-name="{{ $value->name }}"
                                           data-email="{{ $value->email }}"
                                           data-nick_name="{{ $value->nick_name }}"
@@ -82,7 +80,10 @@
                                           class="btn btn-primary btn-xs btn-rounded btn-outline"
                                           onClick="getrole({{$value->group_id}})">
                                         <i class="fa fa-pencil"></i> 编辑
-                                    </span>
+                                    </span>--}}
+                                    <a href="/back/role/edit/{{ $value->id }}" class="btn btn-primary btn-xs btn-rounded btn-outline">
+                                        <i class="fa fa-pencil"></i> 编辑
+                                    </a>
                                     <span onClick="deleteRole({{$value->id}})" class="btn btn-primary btn-xs btn-rounded btn-outline">
                                         <i class="fa fa-trash-o"></i> 删除
                                     </span>

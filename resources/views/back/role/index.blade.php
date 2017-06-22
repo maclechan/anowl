@@ -160,5 +160,4 @@
         });
     };
 </script>
-@include('back.role.edit')
 @endsection

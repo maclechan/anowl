@@ -22,18 +22,25 @@ class RoleController extends BaseController
      */
     public function getIndex()
     {
-        #权限组   --同页面编辑使用
-        //$groups = AdminRole::getRoleGroupByType(0);
-        #角色
-        //$roles  = AdminRole::getRoleGroupByType($group_id,1);
+        $users = AdminUsers::with('hasGroup','hasRole')->orderBy('id','ASC')->paginate(2);
+        //$users = AdminUsers::with('hasGroup','hasRole')->orderBy('id','ASC')->paginate(config('system.page_limit'));
 
-        $users = AdminUsers::orderBy('id','ASC')->paginate(config('system.page_limit'));
+
+       // $users->setPath('?group_id/45');
         return view('back.role.index',[
             'pages' => $users,
-
-            //'groups' => $groups,
+            'groups' => AdminRole::getRoleGroupByType(0),
         ]);
     }
+
+    /**
+     * 用户搜索
+     */
+    /*public function postIndex(Request $request){
+        if ($request->isMethod('post')) {
+
+        }
+    }*/
 
     /**
      * 创建用户

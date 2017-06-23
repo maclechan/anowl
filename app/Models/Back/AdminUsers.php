@@ -112,4 +112,20 @@ class AdminUsers extends Model implements AuthenticatableContract,
             $this->attributeLabels()
         );
     }
+
+    /**
+     * 所属权限信息
+     */
+    public function hasGroup()
+    {
+        return $this->hasOne("App\Models\Back\AdminRole", 'id', 'group_id');
+    }
+
+    /**
+     * 所属角色信息
+     */
+    public function hasRole()
+    {
+        return $this->hasOne("App\Models\Back\AdminRole", 'id', 'role_id');
+    }
 }

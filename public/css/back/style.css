@@ -3498,8 +3498,20 @@ table.table-mail tr td {
 .m-r-none {
   margin-right: 0;
 }
+.p-r-none {
+  padding-right: 0;
+}
+.p-l-none {
+  padding-left: 0;
+}
+.p-b-none{
+  padding-bottom: 0;
+}
 .m-r-xxs {
   margin-right: 1px;
+}
+.p-r-xxs {
+  padding-right: 1px;
 }
 .m-r-xs {
   margin-right: 5px;

@@ -175,11 +175,11 @@
                             <label class="col-lg-2 control-label">是否禁用</label>
                             <div class="col-lg-4">
                                 <div class="radio radio-success radio-inline">
-                                    <input type="radio" id="is_show_1" value="1" name="status">
+                                    <input type="radio" id="is_show_1" value="1" name="status" @if($user['status']==1) checked @endif>
                                     <label for="is_show_1">是</label>
                                 </div>
                                 <div class="radio radio-success radio-inline">
-                                    <input type="radio" id="is_show_0" value="0" name="status" checked="">
+                                    <input type="radio" id="is_show_0" value="0" name="status" @if($user['status']==0) checked @endif>
                                     <label for="is_show_0">否</label>
                                 </div>
                             </div>
@@ -241,6 +241,4 @@
         });
     });
 </script>
-
-
 @endsection

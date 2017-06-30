@@ -45,7 +45,6 @@
                                 </select>
                             </label>
                         </div>
-
                         <div class="col-md-2">
                             <input type="text" name="name" class="form-control" placeholder="用户帐号">
                         </div>

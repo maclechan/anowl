@@ -48,6 +48,8 @@ class AdminUsers extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
+    protected $fields_all;
+
     /**
      * 验证规则
      * @return array
@@ -127,5 +129,68 @@ class AdminUsers extends Model implements AuthenticatableContract,
     public function hasRole()
     {
         return $this->hasOne("App\Models\Back\AdminRole", 'id', 'role_id');
+    }
+
+    public function __construct(array $attributes = array()) {
+        parent::__construct($attributes);
+        $this->fields_all = [
+            'id'              => ['show' => '序号'],
+            'name'            => ['show' => '登陆帐号', 'search' => "name like CONCAT('%', ?, '%')"], //模糊匹配
+            'nick_name'       => ['show' => '昵称', 'search' => "nick_name like CONCAT('%', ?, '%')"],//模糊匹配
+            'email'           => ['show' => '邮箱'],
+            'password'        => ['show' => '密码'],
+            'group_id'        => ['show' => '所在部门'],
+            'role_id'         => ['show' => '角色组'],
+            'mobile'          => ['show'=> '手机'],
+            'created_at'      => ['as'=>'created_at','show' => '创建时间','algorithm'=>'>='],
+            'updated_at'      => ['as'=>'updated_at','show' => '创建时间','algorithm'=>'<='],
+            'status'          => ['show' => '账号状态'],
+        ];
+        $this->fields_show = ['nick_name','email','mobile','group_id','role_id','created_at','status'];
+    }
+
+    /**
+     * 用户列表
+     * @param $input  表单输入数据
+     * @param $request http请求
+     * @return array
+     */
+    public function getUserList($input,$request)
+    {
+        /*$order_by_key  = $input['order'][0]['column'];
+        $order_by      = $input['order'][0]['dir'];
+        $order_by_data = $input['columns'][$order_by_key]['data'];
+        $adminObj      = $this->orderBy($order_by_data,$order_by);
+
+        unset($input['columns']);*/
+        foreach ($input as $field => $value) {
+
+            if (empty($value) || $value < 0 || !isset($this->fields_all[$field])){
+                continue;
+            }
+
+            $search = $this->fields_all[$field]; //查询字段
+
+            if(isset($search['search'])){
+                $this->whereRaw($search['search'], [$value]);
+            }else{
+                $algorithm = '=';
+                if(isset($search['as'])){
+                    $field     = $search['as'];
+                    $algorithm = $search['algorithm'];
+                }
+                $this->where("$field","$algorithm","$value");
+            }
+        }
+
+        $role_count   = $this->count();
+
+        $paginate     = $input['page_number']>0?$input['page_number']:\Config::get('system.page_limit');
+        if($input['start'] > 0 ){
+            $request->query->set('page',ceil($input['start'] / ($paginate-1)));
+        }
+        $list_data = $this->paginate($paginate);
+        return array($role_count,$list_data);
+
     }
 }

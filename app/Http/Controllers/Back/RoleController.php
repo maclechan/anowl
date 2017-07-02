@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Back;
 use DB,
     Input,
     Validator;
+
 use Illuminate\Http\Request;
 
 use App\Models\Back\AdminRole;
@@ -20,9 +21,8 @@ class RoleController extends BaseController
     /**
      * 用户列表
      */
-    public function getIndex($page_num=0)
+    public function getIndex( $page_num=0)
     {
-
         $users = AdminUsers::with('hasGroup','hasRole')->orderBy('id','ASC')->paginate(2);
         //$users = AdminUsers::with('hasGroup','hasRole')->orderBy('id','ASC')->paginate(config('system.page_limit'));
 
@@ -45,11 +45,21 @@ class RoleController extends BaseController
     /**
      * 用户搜索
      */
-    /*public function postIndex(Request $request){
-        if ($request->isMethod('post')) {
+    public function postIndex(Request $request)
+    {
+        $UsersModel = new AdminUsers();
+        $input = $request->all();
 
-        }
-    }*/
+        list($role_count,$role_list) = $UsersModel->getUserList($input,$request);
+
+        $role_array = $role_list->toArray();
+        print_r($role_array);exit;
+
+        //$role_list  = $UsersModel->getShowList($role_list);
+
+        //adminAjaxData($input['draw'], $role_array['per_page'], $role_array['total'], $role_list===null ? array():$role_list);
+
+    }
 
     /**
      * 创建用户

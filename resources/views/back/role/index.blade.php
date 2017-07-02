@@ -31,8 +31,8 @@
                         <a class="btn btn-sm btn-primary btn-outline" href="/back/role/add"><i class="fa fa-plus"></i> 创建用户</a>
                     </div>
 
-                    <form action="{{ url('back/role/index') }}" method="post" class="form-horizontal" enctype="multipart/form-data">
-                        {!! csrf_field() !!}
+                    <form action="{{ url('/back/role/index') }}" method="post" class="form-horizontal" enctype="multipart/form-data">
+
                     <div class="panel-body p-l-none p-b-none">
                         <div class="col-md-2">
                             <label class="pull-left">
@@ -162,7 +162,7 @@
             $.ajax({
                 type: 'POST',
                 url: '/back/role/del',
-                data: {'id':id, '_token':"<?=csrf_token()?>"},
+                data: {'id':id,/* '_token':"<?=csrf_token()?>"*/},
                 dataType: "json",
                 success: function (data) {
                     swal("删除成功", data.msg, "success");

@@ -10,7 +10,6 @@
             </div>
             <form action="{{ url('back/nav/editmenu') }}" method="post" id="editmenu-form" class="form-horizontal">
                 <div class="modal-body">
-                    {!! csrf_field() !!}
                     <input type="hidden" class="form-control" id="id" name="nav_id">
                     <div class="form-group">
                         <label class="col-lg-4 control-label">菜单名称 *</label>

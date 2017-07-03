@@ -10,7 +10,6 @@
                 <span class="font-bold">创建权限组</span>
             </div>
             <form action="{{ url('back/role/addgroup') }}" method="post" id="addform" class="form-horizontal" enctype="multipart/form-data">
-                {!! csrf_field() !!}
                 <div class="modal-body">
                     <div class="form-group">
                         <label class="col-lg-4 control-label">权限组名称 *</label>
@@ -56,7 +55,6 @@
                 <span class="font-bold">创建角色</span>
             </div>
             <form action="{{ url('back/role/addgroup') }}" method="post" id="roleform" class="form-horizontal" enctype="multipart/form-data">
-                {!! csrf_field() !!}
                 <input type="hidden" value="{{ $role_id }}" name="role_id">
                 <input type="hidden" value="1" name="type">
                 <div class="modal-body">

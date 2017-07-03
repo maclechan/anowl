@@ -178,7 +178,7 @@
             $.ajax({
                 type: 'POST',
                 url: '/back/nav/del',
-                data: {'nav_id':nav_id, '_token':"<?=csrf_token()?>"},
+                data: {'nav_id':nav_id},
                 dataType: "json",
                 success: function (data) {
                     swal("删除成功", data.msg, "success");

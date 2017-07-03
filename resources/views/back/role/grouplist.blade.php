@@ -155,7 +155,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '/back/role/delgroup',
-                    data: {'id':id, '_token':"<?=csrf_token()?>"},
+                    data: {'id':id},
                     dataType: "json",
                     success: function (data) {
                         if(data.code == -200){

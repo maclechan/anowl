@@ -11,7 +11,6 @@
             </div>
 
             <form action="{{ url('back/nav/addmenu') }}" method="post" id="addmenu-form" class="form-horizontal">
-                {!! csrf_field() !!}
                 <div class="modal-body">
                     <div class="form-group">
                         <label class="col-lg-4 control-label">菜单名称 *</label>

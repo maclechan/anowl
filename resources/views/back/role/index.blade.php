@@ -46,12 +46,12 @@
                             </label>
                         </div>
                         <div class="col-md-2">
-                            <input type="text" name="name" class="form-control" placeholder="用户帐号">
+                            <input type="text" name="name" class="form-control" placeholder="登陆帐号">
                         </div>
 
                         <div class="col-md-1 p-r-none">
                             <select class="select form-control" id="group_id" name="group_id">
-                                <option>选择权限组</option>
+                                <option value="0">选择权限组</option>
                                 @foreach($groups as $v)
                                     <option value="{{ $v['id'] }}">{{ $v['role_name'] }}</option>
                                 @endforeach
@@ -162,7 +162,7 @@
             $.ajax({
                 type: 'POST',
                 url: '/back/role/del',
-                data: {'id':id,/* '_token':"<?=csrf_token()?>"*/},
+                data: {'id':id},
                 dataType: "json",
                 success: function (data) {
                     swal("删除成功", data.msg, "success");

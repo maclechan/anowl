@@ -34,7 +34,6 @@
 
                 @if(!$user)
                 <form action="{{ url('back/role/add') }}" method="post" id="addform" class="form-horizontal" enctype="multipart/form-data">
-                    {!! csrf_field() !!}
                     <div class="modal-body">
                         <div class="form-group">
                             <label class="col-lg-2 control-label">权限组/角色</label>
@@ -115,7 +114,6 @@
                 </form>
                 @else
                 <form action="{{ url('back/role/edit') }}" method="post" id="addform" class="form-horizontal" enctype="multipart/form-data">
-                    {!! csrf_field() !!}
                     <input type="hidden" value="{{ $user['id'] }}" id="id" name="id">
                     <div class="modal-body">
                         <div class="form-group">

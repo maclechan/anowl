@@ -21,44 +21,27 @@ class RoleController extends BaseController
     /**
      * 用户列表
      */
-    public function getIndex( $page_num=0)
+    public function getIndex()
     {
-        $users = AdminUsers::with('hasGroup','hasRole')->orderBy('id','ASC')->paginate(2);
-        //$users = AdminUsers::with('hasGroup','hasRole')->orderBy('id','ASC')->paginate(config('system.page_limit'));
-
-
-
-        /*if ($page_num>0){
-            echo $page_num;
-            $users->setPath('/back/role/index/'.$page_num);
-        }*/
-        /*if($page_num){
-            echo $page_num;
-        }*/
-
+        $users = AdminUsers::with('hasGroup','hasRole')->orderBy('id','ASC')->paginate(config('system.page_limit'));
         return view('back.role.index',[
             'pages' => $users,
             'groups' => AdminRole::getRoleGroupByType(0),
         ]);
     }
 
-    /**
-     * 用户搜索
+    /** 用户检索
+     * @param $request 检索表单
      */
     public function postIndex(Request $request)
     {
         $UsersModel = new AdminUsers();
         $input = $request->all();
 
-        list($role_count,$role_list) = $UsersModel->getUserList($input,$request);
-
-        $role_array = $role_list->toArray();
-        print_r($role_array);exit;
-
-        //$role_list  = $UsersModel->getShowList($role_list);
-
-        //adminAjaxData($input['draw'], $role_array['per_page'], $role_array['total'], $role_list===null ? array():$role_list);
-
+        $user_list= $UsersModel->getUserList($input,$request);
+        return view('back.role.index',[
+            'pages' => $user_list
+        ]);
     }
 
     /**

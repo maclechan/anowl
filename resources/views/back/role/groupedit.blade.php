@@ -10,7 +10,6 @@
                 <span class="font-bold">编辑权限组</span>
             </div>
             <form action="{{ url('back/role/editgroup') }}" method="post" class="form-horizontal">
-                {!! csrf_field() !!}
                 <input type="hidden" class="form-control" id="group_id" name="id">
                 <div class="modal-body">
                     <div class="form-group">
@@ -65,7 +64,6 @@
                 <span class="font-bold">编辑角色</span>
             </div>
             <form action="{{ url('back/role/editgroup') }}" method="post" class="form-horizontal">
-                {!! csrf_field() !!}
                 <input type="hidden" class="form-control" id="role_id" name="id">
                 <input type="hidden" value="{{ $role_id }}" name="role_id">
                 <div class="modal-body">

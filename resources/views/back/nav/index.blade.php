@@ -127,34 +127,7 @@
                         </tbody>
                     </table>
 
-                    <div class="text-right">
-                        <div class="mail-body text-right">
-                            <ul class="pagination row">
-                                <li class="footable-page-arrow"><a data-page="first" href="{!! $pages->url(1) !!} #first">首页</a></li>
-                                <li class="footable-page-arrow"><a data-page="prev" href="{!! $pages->previousPageUrl() !!} #prev">上一页</a></li>
-
-                                <li class="footable-page active"><a data-page="0" href="#">第{!! $pages->currentPage() !!}页</a></li>
-
-                                <li class="footable-page-arrow"><a data-page="next" href="{!! $pages->nextPageUrl() !!} #next">下一页</a></li>
-                                <li class="footable-page-arrow"><a data-page="last" href="{!! $pages->url($pages->lastPage()) !!} #last">末页</a></li>
-                            </ul>
-
-                            <div class="pull-right pagination">
-                                <!-- Small button group -->
-                                <div class="btn-group m-l-xs m-r-xs">
-                                    <button type="button" class="p-xxs btn btn-primary btn-xs btn-outline" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        跳转页 <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        @for($i=1; $i<=ceil($pages->total()/$pages->perPage()); $i++)
-                                            <li><a href="{!! $pages->url($i) !!}">第{!! $i !!}页</a></li>
-                                        @endfor
-                                    </ul>
-                                </div>
-                                <!-- Small button group -->
-                            </div>
-                        </div>
-                    </div>
+                    @include('back.page')
 
                 </div>
             </div>

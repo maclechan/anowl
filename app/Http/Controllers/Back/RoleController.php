@@ -21,9 +21,10 @@ class RoleController extends BaseController
     /**
      * 用户列表
      */
-    public function getIndex()
+    public function getIndex($id)
     {
-        $users = AdminUsers::with('hasGroup','hasRole')->orderBy('id','ASC')->paginate(config('system.page_limit'));
+        $paginate = $id>0?$id:\Config::get('system.page_limit');
+        $users = AdminUsers::with('hasGroup','hasRole')->orderBy('id','ASC')->paginate($paginate);
         return view('back.role.index',[
             'pages' => $users,
             'groups' => AdminRole::getRoleGroupByType(0),
@@ -39,8 +40,14 @@ class RoleController extends BaseController
         $input = $request->all();
 
         $user_list= $UsersModel->getUserList($input,$request);
+
+        if ($input['page_number'] > 0) {
+            $page_num = $input['page_number'];
+            $user_list->setPath('index/'.$page_num);
+        }
         return view('back.role.index',[
-            'pages' => $user_list
+            'pages' => $user_list,
+            'groups' => AdminRole::getRoleGroupByType(0),
         ]);
     }
 

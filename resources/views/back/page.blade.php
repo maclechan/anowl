@@ -13,7 +13,7 @@
 
         <div class="pagination pull-right col-md-1 m-l-xs ">
             <!-- Small button group -->
-                <div class="input-group">
+                <div class="input-group has-success">
                     <input type="text" id="page" value="{!! $pages->currentPage() !!}" class="input-sm form-control">
                     <span class="input-group-btn">
                         <button id="goto" class="btn btn-sm btn-primary btn-outline" type="button">跳转</button>

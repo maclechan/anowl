@@ -24,7 +24,17 @@ class RoleController extends BaseController
     public function getIndex($id)
     {
         $paginate = $id>0?$id:\Config::get('system.page_limit');
-        $users = AdminUsers::with('hasGroup','hasRole')->orderBy('id','ASC')->paginate($paginate);
+        //$users = AdminUsers::with('hasGroup','hasRole')->orderBy('id','ASC')->paginate($paginate);
+        $users = AdminUsers::with('hasGroup','hasRole')
+                            ->where(function($query) {
+                                if(Input::get('role_id')){
+                                    $query->where('role_id', Input::get('role_id'));
+                                }
+                            })
+                            ->orderBy('id','ASC')
+                            ->paginate($paginate);
+
+
         return view('back.role.index',[
             'pages' => $users,
             'groups' => AdminRole::getRoleGroupByType(0),

@@ -110,7 +110,7 @@
                         </tbody>
                     </table>
 
-                    @include('back.page')
+                    @include('back.page',['pages'=>$pages])
 
                 </div>
 

@@ -33,12 +33,6 @@
                             </span>
                         </ul>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="input-group">
-                            <input type="text" class="input-sm form-control" placeholder="Search">
-                            <span class="input-group-btn"><button class="btn btn-sm btn-primary" type="button"> <b>搜索</b></button> </span>
-                        </div>
-                    </div>
                 </div>
                 <div class="ibox-content">
                     <table class="table table-bordered table-hover">
@@ -127,7 +121,7 @@
                         </tbody>
                     </table>
 
-                    @include('back.page')
+                    @include('back.page',['pages'=>$pages])
 
                 </div>
             </div>

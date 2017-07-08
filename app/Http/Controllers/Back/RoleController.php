@@ -21,7 +21,7 @@ class RoleController extends BaseController
     /**
      * 用户列表
      */
-    public function getIndex($id)
+    public function getIndex($id=0)
     {
         $paginate = $id>0?$id:\Config::get('system.page_limit');
         //$users = AdminUsers::with('hasGroup','hasRole')->orderBy('id','ASC')->paginate($paginate);
@@ -204,7 +204,7 @@ class RoleController extends BaseController
     /**
      * 权限组列表/角色列表
      */
-    public function getGrouplist($id)
+    public function getGrouplist($id=0)
     {
         //角色列表 角色ID
         if($id>0){

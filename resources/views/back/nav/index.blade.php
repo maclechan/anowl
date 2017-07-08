@@ -44,6 +44,7 @@
                                 <th>方法</th>
                                 <th>路由</th>
                                 <th>是否导航</th>
+                                <th>icon</th>
                                 <th>操作</th>
                             </tr>
                         </thead>
@@ -59,6 +60,7 @@
                                 <td>{{ $value->action_name }}</td>
                                 <td>{{ $value->url }}</td>
                                 <td>{!! $value->is_show?'<span class="badge badge-primary">导航</span>':'<span class="badge badge-danger">隐藏</span>' !!}</td>
+                                <td><i class="fa {{ $value->icon_class }}" aria-hidden="true"></i></td>
                                 <td>
                                     <span data-id="{{ $value->nav_id }}"
                                           data-name="{{ $value->nav_name }}"
@@ -79,7 +81,7 @@
                                 </td>
                             </tr>
                             <tr id="faq{{ $value->nav_id }}" class="panel-collapse collapse" bgcolor="#F9F9F9">
-                                    <td colspan="7">
+                                    <td colspan="8">
                                         <table class="table table-bordered table-hover">
                                             <tbody>
                                             @foreach ($_smenu as $_v)
@@ -91,6 +93,7 @@
                                                         <td>{{ $_v->action_name }}</td>
                                                         <td>{{ $_v->url }}</td>
                                                         <td>{!! $_v->is_show?'<span class="badge badge-primary">导航</span>':'<span class="badge badge-danger">隐藏</span>' !!}</td>
+                                                        <td><i class="fa {{ $_v->icon_class }}" aria-hidden="true"></i></td>
                                                         <td>
                                                             <span data-id="{{ $_v->nav_id }}"
                                                                   data-name="{{ $_v->nav_name }}"

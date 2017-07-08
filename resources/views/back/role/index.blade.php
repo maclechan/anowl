@@ -37,7 +37,7 @@
                         <div class="col-md-2">
                             <label class="pull-left">
                                 <select class="form-control select" name="page_number" id='page_number'>
-                                    <option value="-1">每页展示数</option>
+                                    <option value="-1">每页条目数</option>
                                     <option value="10">每页10条</option>
                                     <option value="20">每页20条</option>
                                     <option value="50">每页50条</option>

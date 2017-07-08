@@ -145,8 +145,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        //form&html
-        Collective\Html\HtmlServiceProvider::class,
+        /**
+         * 扩展
+         */
+        Collective\Html\HtmlServiceProvider::class, //form&html
+        Barryvdh\Debugbar\ServiceProvider::class, //laravel-debugbar
 
     ],
 
@@ -196,9 +199,12 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
 
-        #添加使用
+        /**
+         * 添加使用
+         */
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];

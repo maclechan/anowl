@@ -74,7 +74,7 @@
                                                 <i class="fa fa-trash-o"> </i> 删除
                                             </span>
 
-                                            <a href="/back/role/createrole/21" class="btn btn-primary btn-rounded btn-outline btn-xs">
+                                            <a href="/back/role/permission/{{$value->id}}" class="btn btn-primary btn-rounded btn-outline btn-xs">
                                                 <i class="fa fa-plus"> </i> 创建权限
                                             </a>
                                             <a href="/back/role/index?role_id={{ $value->id }}" class="btn btn-primary btn-rounded btn-outline btn-xs">

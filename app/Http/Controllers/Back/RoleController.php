@@ -319,4 +319,20 @@ class RoleController extends BaseController
             return response()->json($data);
         }
     }
+
+    /*
+     * 权限列表
+     */
+    public function getPermission($id)
+    {
+
+        //$data = modTree(AdminModModel::getAllMod());
+        //$role_mod_data = AdminAssignedModel::getRoleMod($id);
+
+        return view('back.role.permission'/*,[
+            'role_id' => $id,
+            'mod_data' => $data,
+            'role_mod_data' => $role_mod_data
+        ]*/);
+    }
 }

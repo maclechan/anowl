@@ -15,9 +15,34 @@ use Illuminate\Http\Request;
 
 use App\Models\Back\AdminRole;
 use App\Models\Back\AdminUsers;
+use App\Models\Back\AdminNav;
+use App\Models\Back\AdminAssigned;
 
 class RoleController extends BaseController
 {
+    /*
+     * 权限列表
+     */
+    public function getPermission($id)
+    {
+        $data = modTree(AdminNav::getAllNav());
+        //$role_mod_data = AdminAssigned::getRoleMod($id);
+
+        return view('back.role.permission',[
+            'role_id' => $id,
+            'nav_data' => $data,
+            //'role_mod_data' => $role_mod_data
+        ]);
+    }
+
+
+
+
+
+
+
+
+
     /**
      * 用户列表
      */
@@ -320,19 +345,5 @@ class RoleController extends BaseController
         }
     }
 
-    /*
-     * 权限列表
-     */
-    public function getPermission($id)
-    {
 
-        //$data = modTree(AdminModModel::getAllMod());
-        //$role_mod_data = AdminAssignedModel::getRoleMod($id);
-
-        return view('back.role.permission'/*,[
-            'role_id' => $id,
-            'mod_data' => $data,
-            'role_mod_data' => $role_mod_data
-        ]*/);
-    }
 }

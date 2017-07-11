@@ -149,4 +149,14 @@ class AdminNav extends BaseModel
         }
         return $nav;
     }
+
+    /**所有菜单数据
+     * @return mixed
+     */
+    static function getAllNav(){
+        $data = self::orderBy('nav_id','ASC')
+            ->orderBy('parent_id','ASC')
+            ->get()->toArray();
+        return $data;
+    }
 }

@@ -46,7 +46,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group" id='hide_role_id' style=" display: none;"required>
+                        <div class="form-group" id='hide_role_id' style=" display: none;" required>
                             <label class="col-lg-2 control-label"> </label>
                             <div class="col-lg-2">
                                 <select class="select form-control" id="role_id" name="role_id">
@@ -107,7 +107,7 @@
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-2">
-                            <button class="btn btn-primary" type="submit">取 消</button>
+                            <button class="btn btn-primary" type="reset">取 消</button>
                             <button class="btn btn-primary" type="submit">保 存</button>
                         </div>
                     </div>

@@ -20,19 +20,38 @@ use App\Models\Back\AdminAssigned;
 
 class RoleController extends BaseController
 {
-    /*
-     * 权限列表
+    /**权限列表
+     * @param $id 角色ID
      */
     public function getPermission($id)
     {
+        //所有权限
         $data = modTree(AdminNav::getAllNav());
-        //$role_mod_data = AdminAssigned::getRoleMod($id);
+        //当前角色所获得的权限
+        $role_mod_data = AdminAssigned::getRoleMod($id);
 
         return view('back.role.permission',[
             'role_id' => $id,
             'nav_data' => $data,
-            //'role_mod_data' => $role_mod_data
+            'role_mod_data' => $role_mod_data
         ]);
+    }
+
+    /**
+     * 编辑/创建权限
+     */
+    public function postRolepermission()
+    {
+        $input = Input::all();
+
+        //角色组ID
+        $input['group_id'] = AdminRole::find($input['role_id'])->parent_id;
+        list($flag, $err) = AdminAssigned::saveData($input);
+
+        $code            = CODE('HTTP_SUCCESS');
+        if(!$flag)  $code = CODE('HTTP_ERROR');
+        $msg = ['200'=>'编辑权限成功','-200'=>$err.'编辑权限失败'];
+        adminMsg($code, $msg[$code], [], '/admin/role/grouprole/'.$input['group_id']);
     }
 
 

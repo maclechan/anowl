@@ -57,7 +57,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-1 p-r-none" id='hide_role_id'>
+                        <div class="col-md-1 p-r-none" id='hide_role_id' style=" display: none;">
                             <select class="select form-control" id="role_id" name="role_id"></select>
                         </div>
 

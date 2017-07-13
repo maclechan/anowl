@@ -2242,17 +2242,17 @@ label.error {
   position: fixed;
   font-family: FontAwesome;
   font-size: 24px;
-  line-height: 24px;
+  line-height: 30px;
   float: left;
   color: #FFF;
   padding-right: 0.5em;
   margin: auto 0.5em auto -1.5em;
 }
 #toast-container > .toast-warning:before {
-  content: "\f003";
+  content: "\f0e7";
 }
 #toast-container > .toast-error:before {
-  content: "\f001";
+  content: "\f071";
 }
 #toast-container > .toast-info:before {
   content: "\f005";

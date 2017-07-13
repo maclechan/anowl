@@ -6,25 +6,9 @@
     <div class="col-lg-12">
         <div class="ibox">
             <div class="ibox-content">
-                @if (session('msg'))
-                    <div class="col-lg-3">
-                        <div class="alert alert-success alert-dismissable">
-                            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                            {{ session('msg') }}
-                        </div>
-                    </div>
-                @endif
-                @if (count($errors) > 0)
-                    <div class="col-lg-3">
-                        <div class="alert alert-danger alert-dismissable">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                @endif
+
+                @include('back.message')
+
                 <!--search-->
                 <div class="panel">
                     <div class="panel-heading">

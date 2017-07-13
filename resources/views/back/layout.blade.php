@@ -10,6 +10,8 @@
 
     <link href="{{ asset('assets/bootstrap-3.3.7/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet">
+    <!-- Toastr style -->
+    <link href="{{ asset('css/back/plugins/toastr/toastr.min.css') }}" rel="stylesheet">
 
     <link href="{{ asset('css/back/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('css/back/style.css') }}" rel="stylesheet">
@@ -33,6 +35,8 @@
     <script type="text/javascript" src="{{ asset('assets/bootstrap-3.3.7/js/bootstrap-select.js') }}"></script>
     <!--弹出框-->
     <script type="text/javascript" src="{{ asset('js/back/plugins/alert/sweetalert.min.js') }}"></script>
+    <!-- Toastr script -->
+    <script type="text/javascript" src="{{ asset('js/back/plugins/toastr/toastr.min.js') }}"></script>
     <!-- End Mainly scripts -->
 
 </head>

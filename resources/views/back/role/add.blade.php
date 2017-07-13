@@ -9,27 +9,7 @@
             <div class="ibox-content">
 
                 <div class="panel-body">
-                    @if (session('msg'))
-                        <div class="col-lg-3">
-                            <div class="alert alert-danger alert-dismissable">
-                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                                {{ session('msg') }}
-                            </div>
-                        </div>
-                    @endif
-                    @if (count($errors) > 0)
-                        <div class="col-lg-3">
-                            <div class="alert alert-danger alert-dismissable">
-                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-
-                    @endif
+                    @include('back.message')
                 </div>
 
                 @if(!$user)
@@ -107,8 +87,8 @@
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-2">
-                            <button class="btn btn-primary" type="reset">取 消</button>
-                            <button class="btn btn-primary" type="submit">保 存</button>
+                            <button class="btn btn-primary" type="reset"> <i class="fa fa-reply"> </i> 取 消</button>
+                            <button class="btn btn-primary" type="submit"> <i class="fa fa-floppy-o"></i> 保 存</button>
                         </div>
                     </div>
                 </form>

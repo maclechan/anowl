@@ -20,48 +20,6 @@ use App\Models\Back\AdminAssigned;
 
 class RoleController extends BaseController
 {
-    /**权限列表
-     * @param $id 角色ID
-     */
-    public function getPermission($id)
-    {
-        //所有权限
-        $data = modTree(AdminNav::getAllNav());
-        //当前角色所获得的权限
-        $role_mod_data = AdminAssigned::getRoleMod($id);
-
-        return view('back.role.permission',[
-            'role_id' => $id,
-            'nav_data' => $data,
-            'role_mod_data' => $role_mod_data
-        ]);
-    }
-
-    /**
-     * 编辑/创建权限
-     */
-    public function postRolepermission()
-    {
-        $input = Input::all();
-
-        //角色组ID
-        $input['group_id'] = AdminRole::find($input['role_id'])->parent_id;
-        list($flag, $err) = AdminAssigned::saveData($input);
-
-        $code            = CODE('HTTP_SUCCESS');
-        if(!$flag)  $code = CODE('HTTP_ERROR');
-        $msg = ['200'=>'编辑权限成功','-200'=>$err.'编辑权限失败'];
-        adminMsg($code, $msg[$code], [], '/admin/role/grouprole/'.$input['group_id']);
-    }
-
-
-
-
-
-
-
-
-
     /**
      * 用户列表
      */
@@ -77,8 +35,6 @@ class RoleController extends BaseController
                             })
                             ->orderBy('id','ASC')
                             ->paginate($paginate);
-
-
         return view('back.role.index',[
             'pages' => $users,
             'groups' => AdminRole::getRoleGroupByType(0),
@@ -160,7 +116,7 @@ class RoleController extends BaseController
         //校验成功入库
         $is_save = $this->create($request->all());
         if($is_save){
-            return redirect('/back/role/index')->with('msg', '创建成功.');
+            return redirect('/back/role/index')->with(['type'=>'success','msg'=>'信息修改成功']);
         }
 
     }
@@ -185,7 +141,7 @@ class RoleController extends BaseController
                 'roles'  => $roles
             ]);
         }else{
-            return redirect('/back/role/index')->with('msg', '查询数据错误.');
+            return redirect('/back/role/index')->with(['type'=>'error','msg'=>'正在非法操作数据.']);
         }
     }
     /**
@@ -214,9 +170,9 @@ class RoleController extends BaseController
         if(!empty($input)){
             $is_update = $model->where('id', $info['id'])->update($filte);
             if(!$is_update){
-                return redirect('back/role/index')->with('msg', '修改失败.');
+                return redirect('back/role/index')->with(['type'=>'error','msg'=>'信息修改失败']);
             }
-            return redirect('back/role/index')->with('msg', '修改成功.');
+            return redirect('back/role/index')->with(['type'=>'success','msg'=>'信息修改成功']);
         }
     }
 
@@ -291,9 +247,9 @@ class RoleController extends BaseController
         }
 
         if(!$is_save){
-            return redirect($url)->with('msg', '创建失败.');
+            return redirect($url)->with(['type'=>'error','msg'=>'创建失败']);
         }
-        return redirect($url)->with('msg', $msg);
+        return redirect($url)->with(['type'=>'success','msg'=>$msg]);
     }
 
     /**
@@ -314,9 +270,9 @@ class RoleController extends BaseController
         }
 
         if(!$is_update){
-            return redirect($url)->with('msg', '编辑失败.');
+            return redirect($url)->with(['type'=>'error','msg'=>'编辑失败']);
         }
-        return redirect($url)->with('msg', $msg);
+        return redirect($url)->with(['type'=>'success','msg'=>$msg]);
     }
 
     /**
@@ -364,5 +320,39 @@ class RoleController extends BaseController
         }
     }
 
+    /**权限列表
+     * @param $id 角色ID
+     */
+    public function getPermission($id)
+    {
+        //所有权限
+        $data = modTree(AdminNav::getAllNav());
+        //当前角色所获得的权限
+        $role_mod_data = AdminAssigned::getRoleMod($id);
+
+        return view('back.role.permission',[
+            'role_id' => $id,
+            'nav_data' => $data,
+            'role_mod_data' => $role_mod_data
+        ]);
+    }
+
+    /**
+     * 编辑/创建权限
+     */
+    public function postRolepermission()
+    {
+        $input = Input::all();
+
+        //角色组ID
+        $input['group_id'] = AdminRole::find($input['role_id'])->parent_id;
+        list($flag, $err) = AdminAssigned::saveData($input);
+
+        if ($flag == false) {
+            return redirect('/back/role/permission/'.$input['role_id'])->with(['type'=>'error','msg'=>'权限分配失败']);
+        }
+
+        return redirect('/back/role/permission/'.$input['role_id'])->with(['type'=>'success','msg'=>'权限分配成功']);
+    }
 
 }

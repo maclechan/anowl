@@ -24,26 +24,21 @@
                                             </thead>
                                             <tbody>
                                             @foreach($nav_data as $key => $value)
-                                                @if($key == 0 && $value['parent_id'] == 0)
+                                                @if($value['parent_id'] == 0)
                                                 <tr id="nav_{{$value['nav_id']}}">
                                                     <td>
-                                                        <strong>{{ $value['nav_name'] }}</strong>
+                                                        <b onclick="check(document.getElementById('nav_'+{{$value['nav_id']}}))">{{ $value['nav_name'] }}</b>
                                                     </td>
                                                     <td>
-                                                        @elseif($key != 0 && $value['parent_id'] == 0)
-                                                    </td>
-                                                </tr>
-
-                                                <tr id="nav_{{$value['nav_id']}}">
-                                                    <td>
-                                                        <strong>{{ $value['nav_name'] }}</strong>
-                                                    </td>
-                                                    <td>
-                                                        @else
-                                                            <div class="col-md-1 checkbox checkbox-success">
-                                                                <input @if(in_array($value['nav_id'], $role_mod_data)) checked @endif name="nav_id[]" id="{{ $value['nav_id'] }}" value="{{ $value['nav_id'] }}" type="checkbox">
-                                                                <label for="{{ $value['nav_id'] }}">{{$value['nav_name']}}</label>
-                                                            </div>
+                                                        <div class="col-md-1 checkbox checkbox-success">
+                                                            <input @if(in_array($value['nav_id'], $role_mod_data)) checked @endif name="nav_id[]" id="{{ $value['nav_id'] }}" value="{{ $value['nav_id'] }}" type="checkbox">
+                                                            <label for="{{ $value['nav_id'] }}">{{$value['nav_name']}}</label>
+                                                        </div>
+                                                @else
+                                                        <div class="col-md-1 checkbox checkbox-success">
+                                                            <input @if(in_array($value['nav_id'], $role_mod_data)) checked @endif name="nav_id[]" id="{{ $value['nav_id'] }}" value="{{ $value['nav_id'] }}" type="checkbox">
+                                                            <label for="{{ $value['nav_id'] }}">{{$value['nav_name']}}</label>
+                                                        </div>
                                                 @endif
                                             @endforeach
                                             </tbody>
@@ -71,4 +66,14 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    function check(Obj){
+        var div_input = Obj.getElementsByTagName('input');
+        var len       = div_input.length;
+
+        for(var i=0; i<len; i++){
+            div_input[i].checked = true;
+        }
+    }
+</script>
 @endsection

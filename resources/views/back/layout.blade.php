@@ -56,7 +56,9 @@
                                 <i class="fa fa-tripadvisor fa-3x" aria-hidden="true"></i>
                             </div>
                             <span class="text-center block m-t-xs">
-                                <strong class="font-bold">欢迎小主 {{$userInfo['info']->nick_name}}</strong>
+                                <strong class="font-bold"> {{$userInfo['info']->nick_name}}</strong>
+                                <div class="profile-data-title">{{$userInfo['group']->role_name}}
+                                    / {{$userInfo['role']->role_name}}</div>
                             </span>
                         </a>
                     </div>

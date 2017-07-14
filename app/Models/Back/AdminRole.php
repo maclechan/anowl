@@ -71,4 +71,12 @@ class AdminRole extends BaseModel
         return $group_data;
     }
 
+    /**
+     * 获取一条信息
+     */
+    static function getPkId($_id)
+    {
+        return self::where('id',$_id)->first();
+    }
+
 }

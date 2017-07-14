@@ -10,8 +10,8 @@ namespace App\Http\Controllers\Back;
 use Illuminate\Contracts\Auth\Guard,
     Illuminate\Routing\Route;
 
-use App\Models\Back\AdminNav;
-//    App\Models\Back\AdminRoleGroupModel;
+use App\Models\Back\AdminNav,
+    App\Models\Back\AdminRole;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -25,12 +25,13 @@ class BaseController extends Controller
     protected $layout = 'back.layout';
 
     /**
-     * 基类构造方法
+     * 构造方法
      */
     public function __construct(Route $route, Guard $auth)
     {
         error_reporting(E_ERROR | E_PARSE);
         $this->middleware('auth'); //用户是否登陆中间件
+        $this->middleware('permission');
         $this->auth      = $auth;
         $this->route     = $route;
         $this->user_info = $this->initUser();
@@ -51,8 +52,8 @@ class BaseController extends Controller
 
             return [
                 'info'  => $user_info, //用户表中一条数据
-                //'group' => AdminRoleGroupModel::getPkId($user_info['group_id']),
-                //'role'  => AdminRoleGroupModel::getPkId($user_info['role_id'])
+                'group' => AdminRole::getPkId($user_info['group_id']),
+                'role'  => AdminRole::getPkId($user_info['role_id'])
             ];
         }
     }
@@ -75,6 +76,8 @@ class BaseController extends Controller
     public function initViewShare()
     {
         if (!$this->auth->guest()){
+            //$this->_page = \Config::get('system.page');
+            //view()->share('base_url', \Config::get('system.base_url'));
             view()->share('userInfo',$this->user_info);    //用户记录、用户组、角色
             view()->share('menu',$this->assigned());  //显示菜单名
             view()->share('controller_name',$this->controller_name);  //当前URI的控制器名

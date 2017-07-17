@@ -65,7 +65,7 @@ class NavController extends BaseController
 
             if(!$is_add){
                 DB::rollBack();
-                return redirect('back/nav/index')->with('msg', '添加失败!');
+                return redirect('back/nav/index')->with(['type'=>'error','msg'=>'添加失败']);
             }
             $navDetail = $NavModel->select('nav_id')->where($filte)->first()->toArray();
 
@@ -75,10 +75,10 @@ class NavController extends BaseController
 
             if(!$is_admin_assigned){
                 DB::rollBack();
-                return redirect('back/nav/index')->with('msg', '添加失败!');
+                return redirect('back/nav/index')->with(['type'=>'error','msg'=>'添加失败']);
             }
             DB::commit();
-               return redirect('back/nav/index')->with('msg', '添加成功!');
+               return redirect('back/nav/index')->with(['type'=>'success','msg'=>'创建成功']);
         }
     }
 
@@ -106,9 +106,9 @@ class NavController extends BaseController
         if(!empty($input)){
             $is_update = $NavModel->where('nav_id', $input['nav_id'])->update($filte);
             if(!$is_update){
-                return redirect('back/nav/index')->with('msg', '修改失败!');
+                return redirect('back/nav/index')->with(['type'=>'error','msg'=>'添加失败']);
             }
-            return redirect('back/nav/index')->with('msg', '修改成功!');
+            return redirect('back/nav/index')->with(['type'=>'success','msg'=>'创建成功']);
 
         }
     }

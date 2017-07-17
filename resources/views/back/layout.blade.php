@@ -74,15 +74,21 @@
                             </a>
                         </li>
                     @else
-                    <li @if($breadcrumb[0]['action_name'] == $action_name) class="active" @endif>
+                    <li @if(ucwords($breadcrumb[0]['controller_name']).'Controller' == $controller_name) class="active" @endif>
                         <a href="#">
                             @if ($value->icon_class)<i class="fa {{$value->icon_class}}"></i> @endif
                             <span class="nav-label">{{$value->nav_name}}</span>
                             <span class="fa arrow"></span>
                         </a>
-                        <ul class="nav nav-second-level collapse @if($breadcrumb[0]['controller_name'] == $action_name) in @endif ">
+                        <ul class="nav nav-second-level collapse @if(ucwords($value->controller_name) == $action_name)in @endif ">
                             @foreach ($value->menu as $menu_value)
-                                <li @if($breadcrumb[0]['action_name'] == $action_name) class="active" @endif>
+                                <li @if(ucwords($menu_value->controller_name).'Controller' == $controller_name && $menu_value->action_name == ucwords($action_name))
+                                        class="active"
+                                    @else
+                                    @if(ucwords($menu_value->controller_name) == $breadcrumb[0]['controller_name'] && $menu_value->action_name == ucwords($action_name))
+                                        class="active"
+                                    @endif
+                                    @endif >
                                     <a href="{{url($menu_value->url)}}">
                                         @if ($menu_value->icon_class)<i class="fa {{$menu_value->icon_class}}"></i> @endif
                                         {{$menu_value->nav_name}}

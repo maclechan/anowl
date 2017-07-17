@@ -17,12 +17,6 @@ class AdminController extends BaseController
      */
     public function index()
     {
-        $_data = DB::table('admin_users')
-            ->orderBy('id', 'ASC')
-            ->paginate(config('system.page_limit'));
-
-        return view('back.admin.index',[
-            'pages' => $_data,
-        ]);
+        return view('back.admin.index');
     }
 }

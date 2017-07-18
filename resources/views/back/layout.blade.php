@@ -74,7 +74,7 @@
                             </a>
                         </li>
                     @else
-                    <li @if(ucwords($breadcrumb[0]['controller_name']).'Controller' == $controller_name) class="active" @endif>
+                    <li @if(ucwords($value->controller_name).'Controller' == $controller_name) class="active" @endif>
                         <a href="#">
                             @if ($value->icon_class)<i class="fa {{$value->icon_class}}"></i> @endif
                             <span class="nav-label">{{$value->nav_name}}</span>

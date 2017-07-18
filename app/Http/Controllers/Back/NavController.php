@@ -60,9 +60,7 @@ class NavController extends BaseController
 
         if(!empty($input)){
             DB::beginTransaction();
-            /*成功返回1*/
-            $is_add = $NavModel->insert($filte);
-
+            $is_add = $NavModel->insertGetId($filte);
             if(!$is_add){
                 DB::rollBack();
                 return redirect('back/nav/index')->with(['type'=>'error','msg'=>'添加失败']);
@@ -124,6 +122,18 @@ class NavController extends BaseController
             $AssignedModel = new AdminAssigned();
 
             DB::beginTransaction();
+
+            //有子菜单不能删除
+            $son_data = $NavModel->where('parent_id', $nav_id)->get()->toArray();
+            if($son_data) {
+                DB::rollBack();
+                $data = [
+                    'code' => -200,
+                    'msg'  => '请先删该类下面所有除子菜单',
+                ];
+                return response()->json($data);
+            }
+
             $is_del = $NavModel->where('nav_id',$nav_id)->delete();
             if(!$is_del) {
                 DB::rollBack();

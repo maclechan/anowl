@@ -8,7 +8,6 @@ namespace App\Http\Controllers\Back;
  */
 
 use DB;
-
 class AdminController extends BaseController
 {
     /**

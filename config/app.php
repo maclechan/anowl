@@ -145,6 +145,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        //自定义服务提供者
+        App\Providers\JsonMsgServiceProvider::class,
+
         /**
          * 扩展
          */
@@ -205,6 +208,9 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+
+        //自定义门面
+        'JsonMsg' => App\Facades\JsonMsgFacade::class,
     ],
 
 ];

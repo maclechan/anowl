@@ -11,5 +11,6 @@ Route::group(['prefix'=>'back','namespace' => 'Back' /*,'domain' => 'wiki.homest
     Route::controller('admin', 'AdminController');
     Route::controller('nav', 'NavController');
     Route::controller('role', 'RoleController');
+    Route::controller('blog', 'BlogController');
 
 });

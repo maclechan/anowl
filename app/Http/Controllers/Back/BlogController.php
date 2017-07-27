@@ -7,18 +7,24 @@ namespace App\Http\Controllers\Back;
  * @date    2017-7-19
  */
 
-use JsonMsg;
-use App\Services\UploadService;
 
 class BlogController extends BaseController
 {
     /**
-     * 
+     *
      * @return view
      */
-    public function getIndex(UploadService $img)
+    public function getIndex()
     {
-        return view('back.admin.index');
+        return view('back.blog.index');
+    }
+
+    /**
+     * show blog view
+     */
+    public function getAdd()
+    {
+        return view('back.blog.add');
     }
 
 }

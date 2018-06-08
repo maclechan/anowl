@@ -1,5 +1,5 @@
 <?php
 return [
-    'page_limit'  => 20, //后台分页数
+    'page_limit'  => 10, //后台分页数
 ];
  ?>

@@ -1,21 +1,19 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
-     *
+     * 填充加载的填充器.
+     * php artisan db:seed
      * @return void
      */
     public function run()
     {
-        Model::unguard();
-
-        // $this->call(UserTableSeeder::class);
-
-        Model::reguard();
+          //后台管理帐号
+         $this->call(AdminUsersTableSeeder::class);
+          //后台角色组
+         $this->call(RoleTableSeeder::class);
     }
 }

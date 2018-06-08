@@ -3,49 +3,53 @@
 namespace App\Exceptions;
 
 use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
     /**
-     * A list of the exception types that should not be reported.
+     * A list of the exception types that are not reported.
      *
      * @var array
      */
     protected $dontReport = [
-        HttpException::class,
-        ModelNotFoundException::class,
+        /*\Illuminate\Auth\Access\AuthorizationException::class,
+         \Symfony\Component\HttpKernel\Exception\HttpException::class,
+         \Illuminate\Database\Eloquent\ModelNotFoundException::class,
+         \Illuminate\Validation\ValidationException::class,*/
     ];
 
     /**
-     * Report or log an exception.
+     * A list of the inputs that are never flashed for validation exceptions.
      *
-     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
+     * @var array
+     */
+    protected $dontFlash = [
+        'password',
+        'password_confirmation',
+    ];
+
+    /**
      *
-     * @param  \Exception  $e
+     * 记录异常并将其发送给外部服务如 Bugsnag 或 Sentry, 等.
+     * report 方法只是将异常传递给异常被记录的基类
+     * @param  \Exception  $exception
      * @return void
      */
-    public function report(Exception $e)
+    public function report(Exception $exception)
     {
-        return parent::report($e);
+        parent::report($exception);
     }
 
     /**
-     * Render an exception into an HTTP response.
-     *
+     * 负责将给定异常转化为发送给浏览器的 HTTP 响应.
+     * 异常被传递给为你生成响应的基类
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $e
+     * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $e)
+    public function render($request, Exception $exception)
     {
-        if ($e instanceof ModelNotFoundException) {
-            $e = new NotFoundHttpException($e->getMessage(), $e);
-        }
-
-        return parent::render($request, $e);
+        return parent::render($request, $exception);
     }
 }

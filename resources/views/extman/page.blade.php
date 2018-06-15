@@ -25,10 +25,10 @@
     </div>
 </div>
 
-{{--<script>
+<script>
     $('#goto').click(function () {
         var num = $("#page").val();
         window.location.href = "{{ $breadcrumb[0]['url'] }}?page="+num
     })
-</script>--}}
+</script>
 

@@ -12,7 +12,7 @@
                     @include('extman.message')
                 </div>
 
-                {{--@if(!$user)--}}
+                @if (empty($user))
                 <form action="{{ url('/role/add') }}" method="post" id="addform" class="form-horizontal" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="form-group">
@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">登陆帐号 *</label>
+                            <label class="col-lg-2 control-label">登陆邮箱 *</label>
                             <div class="col-lg-3">
                                 <input type="email" value="{{ old('email') }}" class="form-control"  name="email" id="email" required placeholder="如：maclechan@qq.com" />
                             </div>
@@ -66,7 +66,7 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">手机号 </label>
                             <div class="col-lg-3">
-                                <input type="text" value="{{ old('mobile') }}" class="form-control"  name="mobile" id="mobile"  placeholder="如：13251079793" />
+                                <input type="text" value="{{ old('mobile') }}" class="form-control"  name="mobile" id="mobile"  placeholder="如：16888886666" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -92,14 +92,14 @@
                         </div>
                     </div>
                 </form>
-                {{--@else
-                <form action="{{ url('back/role/edit') }}" method="post" id="addform" class="form-horizontal" enctype="multipart/form-data">
+                @else
+                <form action="{{ url('/role/edit') }}" method="post" id="addform" class="form-horizontal" enctype="multipart/form-data">
                     <input type="hidden" value="{{ $user['id'] }}" id="id" name="id">
                     <div class="modal-body">
                         <div class="form-group">
                             <label class="col-lg-2 control-label">登陆帐号 *</label>
                             <div class="col-lg-2">
-                                <input type="text" disabled value="{{$user['name']}}" class="form-control"  name="name" id="name" required placeholder="尽量使用英文帐号登陆" />
+                                <input type="text" value="{{$user['email']}}" disabled class="form-control"  name="email" id="email" required />
                             </div>
                         </div>
                         <div class="form-group">
@@ -128,25 +128,25 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">登录密码 </label>
                             <div class="col-lg-3">
-                                <input type="password" value="{{ old('password') }}" class="form-control" name="password" id="password" placeholder="为空不修改" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">邮件 *</label>
-                            <div class="col-lg-3">
-                                <input type="text" value="{{$user['email']}}" class="form-control"  name="email" id="email" required placeholder="如：maclechan@qq.com" />
+                                <input type="password" value="{{ old('password') }}" class="form-control" name="password" id="password" placeholder="为空不修改"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">姓名 *</label>
                             <div class="col-lg-3">
-                                <input type="text" value="{{$user['nick_name']}}" class="form-control"  name="nick_name" id="nick_name" required placeholder="如：路飞" />
+                                <input type="text" value="{{$user['name']}}" class="form-control"  name="name" id="name" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">昵称 *</label>
+                            <div class="col-lg-3">
+                                <input type="text" value="{{$user['nick_name']}}" class="form-control"  name="nick_name" id="nick_name" required />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">手机号 </label>
                             <div class="col-lg-3">
-                                <input type="text" value="{{$user['mobile']}}" class="form-control"  name="mobile" id="mobile"  placeholder="如：13251079793" />
+                                <input type="text" value="{{$user['mobile']}}" class="form-control"  name="mobile" id="mobile" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -172,20 +172,19 @@
                         </div>
                     </div>
                 </form>
-            @endif--}}
+                    <script type="text/javascript">
+                        var group_id = "{{$user['group_id']}}";
+                        var role_id  = "{{$user['role_id']}}";
+                        if(group_id && role_id){
+                            $("#role_id").val(role_id);
+                            $("#group_id").val(group_id);
+                        }
+                    </script>
+            @endif
             </div>
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    /*var group_id = "{{--{{$user['group_id']}}--}}";
-    var role_id  = "{{--{{$user['role_id']}}--}}";
-    if(group_id && role_id){
-        $("#role_id").val(role_id);
-        $("#group_id").val(group_id);
-    }*/
-</script>
 
 <script type="text/javascript">
     $("document").ready(function(){

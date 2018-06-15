@@ -115,13 +115,14 @@ class AdminUsers extends Authenticatable
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
+    public function creates(array $data)
     {
         return AdminUsers::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
-                'password' => Hash::make($data['password']),
+                'password' => \Hash::make($data['password']),
                 'nick_name' => $data['nick_name'],
+                'avatar' => '/img/avatar/'.rand(1,20).'.png',
                 'mobile' => $data['mobile'],
                 'group_id' => $data['group_id'],
                 'role_id' => $data['role_id'],

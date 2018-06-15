@@ -6,7 +6,7 @@ namespace App\Models\Role;
  * @date    2018/5/16
  */
 
-use DB;
+use DB,Validator;
 use App\Models\Role\Permissions;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,6 +21,87 @@ class Models extends Model
     static $crumb;
 
     static $key = 0;
+
+    //所有属性都是可批量赋值
+    protected $guarded = [];
+
+    /**
+     * 验证规则
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'mod_name' => 'required',
+            'parent_id' => 'required|numeric',
+            'controller_name' => 'required',
+        ];
+    }
+
+    /**
+     * 自定义错误信息
+     * @return array
+     */
+    public function ruleMsg()
+    {
+        return [
+            'required' => ':attribute不能为空.',
+        ];
+    }
+
+    /**
+     * 字段映射中文
+     * @return array
+     */
+    public function attributeLabels()
+    {
+        return [
+            'mod_name' => '菜单中文名称',
+            'parent_id' => '父ID',
+            'controller_name' => '菜单控制器名',
+            'action_name' => '菜单方法名',
+            'url' => '菜单路径',
+            'icon_class' => '图标样式',
+            'sort' => '排序',
+            'is_show' => '菜单栏 (0:显示 1:隐藏)',
+        ];
+    }
+
+    /**
+     * 表单数据校验
+     * @param $post_data
+     * @return bool
+     */
+    public function validator($post_data)
+    {
+        return Validator::make(
+            $post_data,
+            $this->rules(),
+            $this->ruleMsg(),
+            $this->attributeLabels()
+        );
+    }
+
+    /**
+     * 创建菜单
+     * @param  array  $data
+     * @return $mod_id
+     */
+    public function creates(array $data)
+    {
+        $mod_id = self::create([
+                'mod_name'              => $data['mod_name'],
+                'parent_id'             => $data['parent_id'],
+                'controller_name'       => $data['controller_name'],
+                'action_name'           => $data['action_name']?$data['action_name']:'',
+                'url'                   => $data['url']?$data['url']:'',
+                'icon_class'            => $data['icon_class']?$data['icon_class']:'',
+                'sort'                  => $data['sort']?$data['sort']:9999,
+                'is_show'               => $data['is_show'],
+        ]);
+
+        return $mod_id->mod_id;
+    }
 
     /**
      * 获取权限下的菜单
@@ -47,8 +128,8 @@ class Models extends Model
 
             }
         }
-        return $assigned;
 
+        return $assigned;
     }
 
     /**

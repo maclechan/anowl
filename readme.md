@@ -1,9 +1,9 @@
-<p align="center">laravel5.5 网台管理系统</p>
+<p align="center">laravel5.5 </p>
 
 
-## 网台管理系统
+## 如何使用
 
-后台帐号 admin@admin.com  admin
+ admin@admin.com  admin
 
 - 数据迁移 php artisan migrate .
 - 数据填充 php artisan db:seed .

@@ -10,8 +10,8 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
-        $role_name = ['管理组', '超级管理员', '财务部', '财务总监'];
-        $role_description = ['后台管理组', '后台管理组', '财务部', '财务总监'];
+        $role_name = ['超管组', '超级管理员', '财务部', '财务总监'];
+        $role_description = ['超级管理组', '后台管理组', '财务部', '财务总监'];
         $parent_id = [0,1,0,3];
         $type = [0,1,0,1];
 

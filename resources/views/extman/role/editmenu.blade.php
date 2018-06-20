@@ -1,5 +1,5 @@
 <!--模态框->菜单编辑-->
-<div class="modal inmodal fade" id="editmenu" tabindex="-1" role="dialog"  aria-hidden="true">
+<div class="modal inmodal fade" id="edit" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
@@ -87,7 +87,7 @@
 
 <script type="text/javascript">
     $("document").ready(function(){
-        $('#editmenu').on('show.bs.modal', function (event) {
+        $('#edit').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var id = button.data('id') // Extract info from data-* attributes
             var name = button.data('name')

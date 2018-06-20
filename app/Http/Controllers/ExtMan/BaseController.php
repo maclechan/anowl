@@ -20,7 +20,12 @@ class BaseController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth'); //用户是否登陆中间件
+        //用户是否授权中间件
+        $this->middleware('permission');
+        //用户是否登陆中间件
+        $this->middleware('auth'); 
+
+        
     }
 
     /**

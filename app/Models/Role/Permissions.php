@@ -40,4 +40,46 @@ class Permissions extends Model
 
         return $data;
     }
+
+    /*
+     *设置角色权限
+     * @arr  表单提交的权限数组
+     */
+    public function saveData(array $arr)
+    {
+        $err       = '';
+        $flag      = true;
+        $is_delete = self::where(['group_id' => $arr['group_id'],'role_id'  => $arr['role_id']])->delete();
+
+        //严谨判断是否删除成功
+        foreach($arr['mod_id'] as $value){
+            $save_array = [
+                'group_id' => $arr['group_id'],
+                'role_id'  => $arr['role_id'],
+                'mod_id'   => $value,
+            ];
+            $is_save = self::create($save_array);
+            if(!$is_save){
+                $mod_name = Models::find($value)->mod_name;
+                $err .= $mod_name.', ';
+                $flag = false;
+            }
+        }
+
+        return array($flag, $err);
+    }
+
+    /*
+     * 获取当前角色拥有的权限
+     * @id   角色id
+     */
+    public function getRoleMod($id)
+    {
+        $mod_data = self::where('role_id',$id)->get()->toArray();
+        $role_mod_data = [];
+        foreach($mod_data as $value){
+            array_push($role_mod_data, $value['mod_id']);
+        }
+        return $role_mod_data;
+    }
 }

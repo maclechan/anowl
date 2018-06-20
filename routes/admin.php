@@ -18,6 +18,12 @@ Route::group(['namespace'=>'ExtMan'],function(){
     Route::post('/role/addmenu','RoleController@addmenu');
     Route::post('/role/editmenu','RoleController@editmenu');
     Route::post('/role/delmenu','RoleController@delmenu');
+    Route::get('/role/group/{id?}','RoleController@group');
+    Route::post('/role/addgroup','RoleController@addgroup');
+    Route::post('/role/delgroup','RoleController@delgroup');
+    Route::post('/role/editgroup','RoleController@editgroup');
+    Route::get('/role/permission/{id}','RoleController@permission');
+    Route::post('/role/rolepermission','RoleController@rolepermission');
 
     Route::resource('/role','RoleController');
 

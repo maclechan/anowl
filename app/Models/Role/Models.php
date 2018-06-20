@@ -202,4 +202,16 @@ class Models extends Model
             self::getBackstepping($nav_data[0]['parent_id']);
         }
     }
+
+    /**所有菜单数据
+     * @return mixed
+     */
+    public function getAllNav()
+    {
+        $data = self::orderBy('mod_id','ASC')
+            ->orderBy('parent_id','ASC')
+            ->get()->toArray();
+
+        return $data;
+    }
 }

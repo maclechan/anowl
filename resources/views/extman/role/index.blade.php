@@ -12,7 +12,7 @@
                 <!--search-->
                 <div class="panel">
                     <div class="panel-heading">
-                        <a class="btn btn-sm btn-primary btn-outline" href="/role/add"><i class="fa fa-plus"></i> 创建用户</a>
+                        <a class="btn btn-sm btn-primary btn-outline" href="/role/add"><i class="fa fa-plus"></i> 创建管理员</a>
                     </div>
 
                     <form action="{{ url('/role/index') }}" method="post" class="form-horizontal" enctype="multipart/form-data">
@@ -58,8 +58,9 @@
                     <table class="table table-bordered table-striped table-hover">
                         <thead>
                         <tr>
+                            <th>#</th>
                             <th>图像</th>
-                            <th>E-mail(登陆帐号)</th>
+                            <th>登陆帐号</th>
                             <th>名称</th>
                             <th>手机</th>
                             <th>权限组</th>
@@ -73,13 +74,14 @@
                         <tbody>
                         @foreach ($pages as $value)
                         <tr>
+                            <td>{{ $value->id }}</td>
                             <td><img src="{{ $value->avatar }}" height="60" width="60" alt="image" class="img-circle"></td>
                             <td>{{ $value->email }}</td>
                             <td>{{ $value->nick_name }}</td>
                             <td>{{ $value->mobile }}</td>
                            <td>{{ $value->hasGroup->role_name }}</td>
                             <td>{{ $value->hasRole->role_name }}</td>
-                            <td>{!! $value->status?'<span class="badge badge-danger">禁用</span>':'<span class="badge badge-primary">正常</span>' !!}</td>
+                            <td>{!! $value->status?'<span class="label label-warning">禁用</span>':'<span class="label label-primary">正常</span>' !!}</td>
                             <td>{{ $value->created_at }}</td>
                             <td>{{ $value->last_login_time }}</td>
                             <td>
@@ -124,7 +126,11 @@
                 data: {'id':id},
                 dataType: "json",
                 success: function (data) {
-                    swal("删除成功", data.msg, "success");
+                    if(data.code == 1){
+                        swal("删除失败", data.msg, "error");
+                    }else {
+                        swal("删除成功", data.msg, "success");
+                    }
                     location.reload();
                 },
                 error: function (data) {

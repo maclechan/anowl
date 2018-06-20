@@ -1,17 +1,17 @@
-@section('title', '用户权限-用户组列表')
-@extends('back.layout')
+@section('title', '权限角色管理')
+@extends('extman.layout')
 @section('content')
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox">
                 <div class="ibox-content">
 
-                    @include('back.message')
+                    @include('extman.message')
 
                     <div class="row">
                         <div class="col-sm-9 m-b-xs">
                             <ul>
-                                @if($tag == 'role')
+                                @if(isset($tag) && ($tag == 'role'))
                                     <span data-toggle="modal" data-target="#addrole" class="btn btn-sm btn-outline btn-primary">
                                         <i class="fa fa-plus"> </i> 创建角色
                                     </span>
@@ -46,22 +46,22 @@
                                         <td>{{ $value->role_name }}</td>
                                         <td>{{ $value->created_at }}</td>
                                         <td>
-                                        @if($tag == 'role')
+                                        @if(isset($tag) && ($tag == 'role'))
                                             <span data-role_id="{{ $value->id }}"
                                                   data-role_name="{{ $value->role_name }}"
                                                   data-role_pid="{{ $value->parent_id }}"
                                                   data-role_description="{{ $value->role_description }}"
                                                   data-toggle="modal" data-target="#editrole" class="btn btn-primary btn-rounded btn-outline btn-xs">
-                                                <i class="fa fa-pencil"> </i> 编辑
+                                                <i class="fas fa-file-alt"> </i> 编辑
                                             </span>
                                             <span onClick="delGroup({{$value->id}})" class="btn btn-primary btn-rounded btn-xs btn-outline">
-                                                <i class="fa fa-trash-o"> </i> 删除
+                                                <i class="fas fa-file-excel"> </i> 删除
                                             </span>
 
-                                            <a href="/back/role/permission/{{$value->id}}" class="btn btn-primary btn-rounded btn-outline btn-xs">
-                                                <i class="fa fa-plus"> </i> 创建权限
+                                            <a href="/role/permission/{{$value->id}}" class="btn btn-primary btn-rounded btn-outline btn-xs">
+                                                <i class="fas fa-file-medical"> </i> 创建权限
                                             </a>
-                                            <a href="/back/role/index?role_id={{ $value->id }}" class="btn btn-primary btn-rounded btn-outline btn-xs">
+                                            <a href="/role/index?role_id={{ $value->id }}" class="btn btn-primary btn-rounded btn-outline btn-xs">
                                                 <i class="fa fa-list-ul"> </i> 用户列表
                                             </a>
                                         @else
@@ -69,14 +69,14 @@
                                                   data-group_name="{{ $value->role_name }}"
                                                   data-group_description="{{ $value->role_description }}"
                                                   data-toggle="modal" data-target="#editgroup" class="btn btn-primary btn-rounded btn-outline btn-xs">
-                                                <i class="fa fa-pencil"> </i> 编辑
+                                                <i class="fas fa-file-alt"> </i> 编辑
                                             </span>
                                             <span onClick="delGroup({{$value->id}})" class="btn btn-primary btn-rounded btn-xs btn-outline">
-                                                <i class="fa fa-trash-o"> </i> 删除
+                                                <i class="fas fa-file-excel"> </i> 删除
                                             </span>
 
-                                            <a href="/back/role/grouplist/{{ $value->id }}" class="btn btn-primary btn-rounded btn-outline btn-xs">
-                                                <i class="fa fa-plus"> </i> 角色管理
+                                            <a href="/role/group/{{ $value->id }}" class="btn btn-primary btn-rounded btn-outline btn-xs">
+                                                <i class="fas fa-file"> </i> 角色管理
                                             </a>
                                         @endif
                                         </td>
@@ -86,7 +86,7 @@
                                 </tbody>
                             </table>
 
-                            @include('back.page',['pages'=>$pages])
+                            @include('extman.page',['pages'=>$pages])
                         </div>
 
                 </div>
@@ -109,26 +109,25 @@
             }, function(){
                 $.ajax({
                     type: 'POST',
-                    url: '/back/role/delgroup',
+                    url: '/role/delgroup',
                     data: {'id':id},
                     dataType: "json",
                     success: function (data) {
-                        if(data.code == -200){
+                        if(data.code == 1){
                             swal("删除失败", data.msg, "error");
                         }else {
                             swal("删除成功", data.msg, "success");
-                            location.reload();
                         }
-
+                        location.reload();
                     },
                     error: function (data) {
-                        swal("删除失败", data.msg, "error");
+                        swal("参数无法传递错误", data.msg, "error");
                     }
                 });
             });
         };
     </script>
 
-@include('back.role.groupadd')
-@include('back.role.groupedit')
+@include('extman.role.addgroup')
+@include('extman.role.editgroup')
 @endsection
